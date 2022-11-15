@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+
+{% block menuitems %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sobre la empresa
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/metodopago">Métodos de pago</a></li>
+      <li><a class="dropdown-item" href="#">Opciones de entrega</a></li>
+      <li><a class="dropdown-item" href="#">Política de envío</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Sobre la empresa</a></li>
+    </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+<div class="row my-5">
+    <div class="col-md-12 mx-auto">
+        <h1>Métodos de pago</h1>
+        <hr>
+        <h2>Métodos de pago aceptados</h2>
+        <p>Los siguientes métodos de pago están a su disposición:</p>
+        <ul>
+            <li>Contrareembolso</li>
+            <li>Tarjeta de crédito. Disponibles:</li>
+                <ul>
+                    <li>Visa</li>
+                    <li>Mastercard</li>
+                    <li>Amex</li>
+                    <li>Discover</li>
+                    <li>JCB</li>
+                    <li>Maestro</li>
+                    <li>UnionPay</li>
+                    <li>Elo</li>
+                    <li>Hiper</li>
+                    <li>HiperCard</li>
+                </ul>
+            <li>PayPal</li>
+            <li>Métodos de pago locales, como por ejemplo:</li>
+                <ul>
+                    <li>AliPay (🇨🇳)</li>
+                    <li>OXXO (🇲🇽)</li>
+                </ul>
+        </ul>
+        <h2></h2>
+    </div>
+</div>
+{% endblock %}
+
+

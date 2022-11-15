@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def metodo_pago_view(request):
+    return render(request,'base/metodopago.html')
