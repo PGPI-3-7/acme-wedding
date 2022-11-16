@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def opciones_entrega_view(request):
+    return render(request,'base/opcionesentrega.html')
