@@ -1,0 +1,23 @@
+{% extends  "base.html" %}
+{% load i18n static %}
+
+{% block content%}
+<div class="card mt-5">
+    <div class="card-body text-center">
+        <b>En Acme Wedding lo preparamos todo para que os queráis como se quieren los patos, patodalavida</b> 
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3 hover-overlay">
+            <img src="{% static "" %}" class="img-fluid" alt="...">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static "" %}" class="img-fluid" alt="...">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static "" %}" class="img-fluid" alt="...">
+        </div>
+    </div>
+
+</div>
+{% endblock %}
