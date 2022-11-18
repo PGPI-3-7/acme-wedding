@@ -21,5 +21,7 @@ jobs:
 
     - name: Run migrations
       run: |
+        ls
         cd acme_wedding
+        ls
         python manage.py migrate
