@@ -19,4 +19,5 @@ from base import views as base_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('politicaenvio/',base_views.politica_envio_view)
 ]

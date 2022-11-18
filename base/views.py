@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def politica_envio_view(request):
+    return render(request,'base/politicaenvio.html')
