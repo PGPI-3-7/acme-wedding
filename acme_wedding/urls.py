@@ -19,4 +19,5 @@ from base import views as base_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('datosempresa/',base_views.datos_empresa_view)
 ]
