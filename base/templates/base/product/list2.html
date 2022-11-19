@@ -1,0 +1,149 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+body{
+    vertical-align: middle;
+    font-family: 'Calibri', sans-serif !important;
+    background-color:#f4f4f4}
+    
+.mt-100{margin-top:5%}
+
+.product-wrapper,.product-img{
+    overflow:hidden;
+    position:relative}
+
+  .mb-45{margin-bottom: 3%}
+
+  .product-action{
+    bottom: 0px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    transition: all 0.6s ease 0s}
+
+  .product-wrapper{border-radius: 5%}
+
+  .product-img >span{
+    background-color: #fff;
+    box-shadow: 0 0 8px 1.7px rgba(0, 0, 0, 0.06);
+    color: #333;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    left: 7%;
+    letter-spacing: 1px;
+    padding: 1% 3%;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: 7%;
+    border-radius: 15%;
+}
+
+  .product-action-style{
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 8px 1.7px rgba(0, 0, 0, 0.06);
+    display: inline-block;
+    padding: 16px 2px 12px;
+    border-radius: 5%;
+}
+
+  .product-action-style >h5>a{
+    color: black;
+    line-height: 1;
+    padding: 0 21px;
+    position: relative}
+
+  .product-action-style >h5>a.action-plus{font-size: 18px}
+  
+  .product-wrapper:hover .product-action{bottom: 20px;opacity: 1}
+
+  .card:hover .card-img-top{
+    opacity: 0.80
+  }
+  .card{
+    background-color: black;
+    border: none;
+  }
+  .price-sold{
+    color:red !important;
+  }
+  .img-sold-out{
+    position: relative;
+    opacity: 0.7;
+    z-index: 0;
+  }
+  .sold-out-logo{
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+  }
+
+</style>
+
+<div class="container" >
+    <br>
+  
+    <nav class="nav nav-pills nav-justified sticky">
+
+            <a  {% if not category %}class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{% url "base:product_list" %}">Todas</a>
+      {% for c in categories %}
+          <a {% if category.slug == c.slug %}class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+      {% endfor %}
+
+    </nav>
+
+
+
+    <div class=" justify-content-center mt-100">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5"> 
+            {% for product in products %}
+            <div class="col mb-4">
+                <div class="product-wrapper card">
+                    <div class="product-img"> 
+                        <a href="{{ product.get_absolute_url }}">
+                            <img class="card-img-top" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                        </a>	
+                        <span class="text-center">{{ product.price }}€</span>
+                        <div class="product-action"> 
+                            <div class="product-action-style">
+                                <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
+            {% endfor %}
+            {% for product in products_sol %}
+            <div class="col mb-4">
+                <div class="product-wrapper card">
+                    <div class="product-img"> 
+                        <a href="{{ product.get_absolute_url }}">
+                            <img class="card-img-top sold-out-logo" src="/media/agotado.png">
+                            <img class="card-img-top img-sold-out" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                        </a>	
+                        <span class="text-center price-sold">{{ product.price }}€</span>
+                        <div class="product-action"> 
+                            <div class="product-action-style">
+                                <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
+            {% endfor %}
+        </div> 
+    </div>
+</div>  
+{% endblock %}

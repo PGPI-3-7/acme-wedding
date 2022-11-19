@@ -6,30 +6,33 @@
 {% endblock %}
 
 {% block content %}
-  <div id="sidebar">
-    <h3>Categories</h3>
-    <ul>
-      <li {% if not category %}class="selected"{% endif %}>
-        <a href="{% url "base:product_list" %}">All</a>
-      </li>
+  <div class="container" >
+    <br>
+  
+    <nav class="nav nav-pills nav-justified sticky">
+
+            <a  {% if not category %}class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{% url "base:product_list" %}">Todas</a>
       {% for c in categories %}
-        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
-          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-        </li>
+          <a {% if category.slug == c.slug %}class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
       {% endfor %}
-    </ul>
+
+    </nav>
+
   </div>
-  <div id="main" class="product-list">
-    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+  <h1>{% if category %}{{ category.name }}{% else %}Productos{% endif %}</h1>
+  <div id="main" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
     {% for product in products %}
-      <div class="item">
-        <a href="{{ product.get_absolute_url }}">
-          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-        </a>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-        <br>
-        ${{ product.price }}
-      </div>
+    <div class="col mb-4">
+        <div class="card">
+            <a href="{{ product.get_absolute_url }}">
+            <img class="card-img-top" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+            </a>
+            <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+
+            <p class="card-text">{{ product.price }}€</p>
+        </div>
+    </div>
     {% endfor %}
   </div>
 {% endblock %}
