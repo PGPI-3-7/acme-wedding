@@ -207,11 +207,11 @@ ul.errorlist {
     font-weight:bold;
 }
 
-.product-detail img {
+/*.product-detail img {
     width:40%;
     float:left;
     padding:0 20px 20px 0;
-}
+}*/
 
 .product-detail h1 {
     margin-bottom:0;
@@ -328,3 +328,24 @@ form div.field {
     color:#666;
     border-radius:4px;
 }
+
+
+img {
+    width: 300px; /* You can set the dimensions to whatever you want */
+    height:300px;
+    object-fit: cover;
+}
+a:link, a:visited, a:active {
+    text-decoration:none;
+    
+}
+.img-sold-out{
+    position: relative;
+    opacity: 0.7;
+    z-index: 0;
+  }
+  .sold-out-logo{
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+  }
