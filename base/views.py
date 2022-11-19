@@ -5,6 +5,8 @@ from .models import Category, Product
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
+    categories_limit=categories[0:3]
+    categories_all=categories[3:]
     products_ava = Product.objects.filter(available=True)
     products_sol = Product.objects.filter(available=False)
     if category_slug:
@@ -12,9 +14,10 @@ def product_list(request, category_slug=None):
         products_ava = products_ava.filter(category=category)
         products_sol = products_sol.filter(category=category)
     return render(request,
-                  'base/product/list2.html',
+                  'base/product/catalogo.html',
                   {'category': category,
-                   'categories': categories,
+                   'categories_limit': categories_limit,
+                   'categories_all': categories_all,
                    'products': products_ava,
                    'products_sol': products_sol
                    })
