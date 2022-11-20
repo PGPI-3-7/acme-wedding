@@ -1,5 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Calibri:400,300,700);
 
+img {
+  width: 300px; /* You can set the dimensions to whatever you want */
+  height:300px;
+  object-fit: cover;
+}
+
 body{
     vertical-align: middle;
     font-family: 'Calibri', sans-serif !important;
