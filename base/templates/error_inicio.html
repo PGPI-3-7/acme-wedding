@@ -1,0 +1,14 @@
+{% extends  "base.html" %}
+{% load i18n static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "inicio.css" %}">
+{% endblock %}
+
+{% block content%}
+<div class="row justify-content-center">
+    <div class="col-md-6 mt-5">
+        <button class="btn btn-danger">Actualmente no hay suficientes productos disponibles como para mostrar el escaparate :(</button>
+    </div>
+</div>
+{% endblock %}

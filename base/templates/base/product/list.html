@@ -1,8 +1,12 @@
-{% extends "base/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}
   {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "base.css" %}">
 {% endblock %}
 
 {% block content %}

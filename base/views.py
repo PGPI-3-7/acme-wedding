@@ -4,7 +4,11 @@ from .models import Category, Product
 
 
 def base(request):
-    productos = random.sample(list(Product.objects.all().values()),k=3)
+    try:
+        productos = random.sample(list(Product.objects.filter(available=True).values()),k=3)
+        print(productos)
+    except:
+        return render(request,'error_inicio.html')
     return render(request,'inicio.html',{'p0':productos[0],'p1':productos[1],'p2':productos[2]})
 
 def product_list(request, category_slug=None):
@@ -24,10 +28,9 @@ def product_list(request, category_slug=None):
 def product_detail(request, id, slug):
     product = get_object_or_404(Product,
                                 id=id,
-                                slug=slug,
-                                available=True)
+                                slug=slug)
 
 
     return render(request,
-                  'shop/product/detail.html',
+                  'base/product/detail.html',
                   {'product': product})
