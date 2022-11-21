@@ -4,7 +4,12 @@ from .models import Category, Product
 
 def product_list(request, category_slug=None):
     category = None
-    categories = Category.objects.all()
+    cat = Category.objects.all()
+    categories=[]
+    for c in cat:
+        if len(Product.objects.filter(category=c))>0:
+            categories.append(c)
+
     categories_limit=categories[0:3]
     categories_all=categories[3:]
     products_ava = Product.objects.filter(available=True)
