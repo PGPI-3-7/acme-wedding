@@ -1,0 +1,17 @@
+@import url(//fonts.googleapis.com/css?family=Ubuntu);
+
+img {
+    width: 200px; /* You can set the dimensions to whatever you want */
+    height: 600px;
+    object-fit: cover;
+}
+
+img:hover
+{
+    transform: scale(1.1);
+}
+
+img
+{
+    transition: transform .5s;
+}
