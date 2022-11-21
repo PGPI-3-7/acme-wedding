@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MinValueValidator
 
 
 class Category(models.Model):
@@ -30,7 +31,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/%Y/%m/%d',
                               blank=True)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2,validators=[MinValueValidator(0)])
     amount=models.PositiveIntegerField(null=False)
     available = models.BooleanField(editable=False)
     created = models.DateTimeField(auto_now_add=True)
