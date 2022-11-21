@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static "product/catalogo.css" %}">
+
+<div class="container" >
+    <br>
+  
+    <nav class="nav nav-pills nav-justified sticky">
+
+            <a  {% if not category %}class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{% url "base:product_list" %}">Todas</a>
+      {% for c in categories_limit %}
+          <a {% if category.slug == c.slug %} class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+      {% endfor %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Más</a>
+        <ul class="dropdown-menu">
+          {% for c in categories_all %}
+            <li><a {% if category.slug == c.slug %} class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+          {% endfor %}
+        </ul>
+    </li>
+    </nav>
+
+
+
+    <div class=" justify-content-center mt-100">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5"> 
+            {% for product in products %}
+            <div class="col mb-4">
+                <div class="product-wrapper card">
+                    <div class="product-img"> 
+                        <a href="{{ product.get_absolute_url }}">
+                            <img class="card-img-top" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                        </a>	
+                        <span class="text-center">{{ product.price }}€</span>
+                        <div class="product-action"> 
+                            <div class="product-action-style">
+                                <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+                                <div class=>
+
+                                    <input class=" mr-2" type="number" value="1" min="1" max="{{product.amount}}" step="1"/>
+
+                                    <button type="button" class="btn btn-primary" type="submit" value="Submit"><i class="bi bi-cart3"></i></button>
+
+                                </div>
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
+            {% endfor %}
+            {% for product in products_sol %}
+            <div class="col mb-4">
+                <div class="product-wrapper card">
+                    <div class="product-img"> 
+                        <a href="{{ product.get_absolute_url }}">
+                            <img class="card-img-top sold-out-logo" src="/media/agotado.png">
+                            <img class="card-img-top img-sold-out" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                        </a>	
+                        <span class="text-center price-sold">{{ product.price }}€</span>
+                        <div class="product-action"> 
+                            <div class="product-action-style">
+                                <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
+            {% endfor %}
+        </div> 
+    </div>
+</div>  
+{% endblock %}
