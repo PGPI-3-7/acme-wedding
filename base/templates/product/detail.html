@@ -1,18 +1,21 @@
-{% extends "base.html" %}
+    {% extends "base.html" %}
 {% load static %}
 {% block title %}
 {{ product.name }}
 {% endblock %}
 {% block css %}
-<link rel="stylesheet" href="{% static "base.css" %}">
+<link rel="stylesheet" href="{% static "/product/product_detail.css" %}">
 {% endblock %}
 {% block content %}
+
+<link rel="stylesheet" href="{% static "product/product_detail.css" %}">
+
 <div class="container product-detail" style="margin-top: 5%;">
     <div class="row align-items-center">
         <div class="col-lg-6" >
             <div class="card align-items-center" style="border: none;">
                 {%if product.available == False %}
-                <img class="sold-out-logo"  src="/media/agotado.png" id="available">
+                <img class="sold-out-logo"  src="/media/agotado.png" >
                 {% endif %}
                 <img class="img-sold-out" style=" object-fit:scale-down" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
             </div>
@@ -27,9 +30,10 @@
             <p class="price">${{ product.price }}</p>
             {{ product.description|linebreaks }}
 
-            {%if product.available == True %}
-            <div class="row available">
-                <input class="col-6 mr-2" type="number" value="1" min="1"  step="1" style="margin-right: 2%; width:30%"/>
+
+            {%if  product.available == True %}
+            <div class="row">
+                <input class="col-4 mr-2" type="number" value="1" min="1" max="{{product.amount}}" step="1" style="margin-right: 2%; width:30%"/>
                 <button type="button" class="btn btn-primary col-2" type="submit" value="Submit"><i class="bi bi-cart3"></i></button>
             </div>
             {% endif %}

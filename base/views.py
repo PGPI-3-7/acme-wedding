@@ -18,7 +18,7 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
     return render(request,
-                  'base/product/list.html',
+                  'product/list.html',
                   {'category': category,
                    'categories': categories,
                    'products': products})
@@ -31,5 +31,5 @@ def product_detail(request, id, slug):
 
 
     return render(request,
-                  'base/product/detail.html',
+                  'product/detail.html',
                   {'product': product})

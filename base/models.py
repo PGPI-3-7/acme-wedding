@@ -42,6 +42,7 @@ class Product(models.Model):
             self.available=False
         super(Product, self).save(*args, **kwargs) # Call the "real" save() method.
     
+
     class Meta:
         ordering = ('name',)
         index_together = (('id', 'slug'),)
