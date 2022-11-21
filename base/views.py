@@ -1,6 +1,18 @@
+import random
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 
+
+def metodo_pago_view(request):
+    return render(request,'base/metodopago.html')
+
+
+def base(request):
+    try:
+        productos = random.sample(list(Product.objects.filter(available=True).values()),k=3)
+    except:
+        return render(request,'error.html',{'mensaje': 'Actualmente no hay suficientes productos disponibles como para mostrar el escaparate :('})
+    return render(request,'inicio.html',{'p0':productos[0],'p1':productos[1],'p2':productos[2]})
 
 def product_list(request, category_slug=None):
     category = None
@@ -25,3 +37,14 @@ def product_detail(request, id, slug):
     return render(request,
                   'product/detail.html',
                   {'product': product})
+
+
+def opciones_entrega_view(request):
+    return render(request,'base/opcionesentrega.html')
+
+def politica_envio_view(request):
+    return render(request,'base/politicaenvio.html')
+
+def datos_empresa_view(request):
+    return render(request,'base/datosempresa.html')
+

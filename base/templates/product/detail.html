@@ -3,6 +3,9 @@
 {% block title %}
 {{ product.name }}
 {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static "base.css" %}">
+{% endblock %}
 {% block content %}
 
 <link rel="stylesheet" href="{% static "product/product_detail.css" %}">

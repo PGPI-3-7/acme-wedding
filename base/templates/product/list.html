@@ -5,6 +5,10 @@
   {% if category %}{{ category.name }}{% else %}Products{% endif %}
 {% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static "base.css" %}">
+{% endblock %}
+
 {% block content %}
   <div id="sidebar">
     <h3>Categories</h3>

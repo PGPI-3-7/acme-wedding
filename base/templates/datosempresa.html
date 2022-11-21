@@ -1,0 +1,45 @@
+{%extends 'base.html'%}
+
+{% block menuitems %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sobre la empresa
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Métodos de pago</a></li>
+      <li><a class="dropdown-item" href="#">Opciones de entrega</a></li>
+      <li><a class="dropdown-item" href="#">Política de envío</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="/datosempresa">Sobre la empresa</a></li>
+    </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+<div class="row my-5">
+  <h1>Datos de la empresa</h1>
+  <hr>
+  <div class="col-lg-6">
+    <div class="card my-2">
+      <div class="card-header">Acme Wedding</div>
+      <div class="card-body">
+        <p>Acme Wedding es una empresa emergente centrada en la venta y alquiler de artículos de boda.</p>
+        <p>Desde ramos de flores para la novia hasta la vajilla del convite, Acme Wedding ofrece una enorme variedad de artículos con los que realizar la boda de tus sueños.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card my-2">
+      <div class="card-header">Datos de contacto</div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item"><i class="bi bi-telephone-fill"></i> Teléfono: (+34) 627750323</li>
+          <li class="list-group-item"><i class="bi bi-envelope-fill"></i> Correo electrónico: <a href="mailto:acme.wedding@gmail.com" class="link-info">acme.wedding@gmail.com</a></li>
+          <li class="list-group-item"><i class="bi bi-geo-alt-fill"></i> Dirección: Av. República Argentina 666, 41011</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
