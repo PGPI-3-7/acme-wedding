@@ -85,6 +85,6 @@ body{
     position: absolute;
     z-index: 1;
   }
-  .nav-item ,.dropdown-toggle{
+  .nav-item ,.dropdown-pers{
     color:black;
   }

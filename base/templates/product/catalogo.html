@@ -20,7 +20,7 @@
           <a {% if category.slug == c.slug %} class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
       {% endfor %}
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Más</a>
+        <a class="nav-link dropdown-toggle dropdown-pers" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Más</a>
         <ul class="dropdown-menu">
           {% for c in categories_all %}
             <li><a {% if category.slug == c.slug %} class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
