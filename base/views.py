@@ -45,3 +45,6 @@ def opciones_entrega_view(request):
 def politica_envio_view(request):
     return render(request,'base/politicaenvio.html')
 
+def datos_empresa_view(request):
+    return render(request,'base/datosempresa.html')
+
