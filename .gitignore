@@ -12,6 +12,8 @@
 *.vsix
 
 
+
 __pycache__/
 *.pyc
+
 

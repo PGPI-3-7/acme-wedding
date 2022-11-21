@@ -38,3 +38,7 @@ def product_detail(request, id, slug):
                   'base/product/detail.html',
                   {'product': product})
 
+
+def opciones_entrega_view(request):
+    return render(request,'base/opcionesentrega.html')
+
