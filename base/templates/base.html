@@ -22,9 +22,22 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% block menuitems %}{% endblock %}
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="/catalogo">Catálogo</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sobre la empresa
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="/metodopago">Métodos de pago</a></li>
+                            <li><a class="dropdown-item" href="/opcionesentrega">Opciones de entrega</a></li>
+                            <li><a class="dropdown-item" href="/politicaenvio">Política de envío</a></li>
+                            <li><a class="dropdown-item" href="/datosempresa">Sobre la empresa</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>

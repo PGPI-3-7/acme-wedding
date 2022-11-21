@@ -11,7 +11,7 @@ from django.contrib import messages
 
 
 def metodo_pago_view(request):
-    return render(request,'base/metodopago.html')
+    return render(request,'metodopago.html')
 
 
 def base(request):
@@ -129,10 +129,10 @@ def product_detail(request, id, slug):
     
     
 def opciones_entrega_view(request):
-    return render(request,'base/opcionesentrega.html')
+    return render(request,'opcionesentrega.html')
 
 def politica_envio_view(request):
-    return render(request,'base/politicaenvio.html')
+    return render(request,'politicaenvio.html')
 
 def datos_empresa_view(request):
-    return render(request,'base/datosempresa.html')
+    return render(request,'datosempresa.html')
