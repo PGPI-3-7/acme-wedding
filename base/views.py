@@ -107,7 +107,7 @@ def product_detail(request, id, slug):
 
             product.description = form.data['description']
 
-
+            '''para que coja bien la imagen'''
             if request.FILES:
                 imagen=str(request.FILES['image'])
                 if(imagen.endswith('.jpg') or imagen.endswith('.png') ):
