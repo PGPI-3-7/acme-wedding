@@ -3,6 +3,10 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
 
 
+def metodo_pago_view(request):
+    return render(request,'base/metodopago.html')
+
+
 def base(request):
     try:
         productos = random.sample(list(Product.objects.filter(available=True).values()),k=3)
@@ -33,3 +37,4 @@ def product_detail(request, id, slug):
     return render(request,
                   'base/product/detail.html',
                   {'product': product})
+
