@@ -42,3 +42,6 @@ def product_detail(request, id, slug):
 def opciones_entrega_view(request):
     return render(request,'base/opcionesentrega.html')
 
+def politica_envio_view(request):
+    return render(request,'base/politicaenvio.html')
+
