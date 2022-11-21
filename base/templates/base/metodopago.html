@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+
+{% block menuitems %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sobre la empresa
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/metodopago">Métodos de pago</a></li>
+      <li><a class="dropdown-item" href="#">Opciones de entrega</a></li>
+      <li><a class="dropdown-item" href="#">Política de envío</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Sobre la empresa</a></li>
+    </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+<div class="row my-5">
+    <div class="col-md-12 mx-auto">
+        <h1>Métodos de pago</h1>
+        <hr>
+        <h2>Métodos de pago aceptados</h2>
+        <p>Los siguientes métodos de pago están a su disposición:</p>
+        <ul class="list-group">
+            <li class="list-group-item fw-bold">
+                <p>Contrareembolso</p>
+                <span class="fw-normal">Pago junto a la entrega del pedido.</p>
+            </li>
+            
+            <li class="list-group-item fw-bold">Tarjeta de crédito. Disponibles:
+                <ul class="my-3 list-group fw-normal">
+                    <li class="list-group-item">Visa</li>
+                    <li class="list-group-item">Mastercard</li>
+                    <li class="list-group-item">Amex</li>
+                    <li class="list-group-item">Discover</li>
+                    <li class="list-group-item">JCB</li>
+                    <li class="list-group-item">Maestro</li>
+                    <li class="list-group-item">UnionPay</li>
+                    <li class="list-group-item">Elo</li>
+                    <li class="list-group-item">Hiper</li>
+                    <li class="list-group-item">HiperCard</li>
+                </ul>
+            </li>
+            <li class="list-group-item fw-bold">PayPal</li>
+        </ul>
+        <h2></h2>
+    </div>
+</div>
+{% endblock %}
+
+
