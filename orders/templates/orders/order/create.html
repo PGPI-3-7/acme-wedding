@@ -1,0 +1,51 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+  Checkout
+{% endblock %}
+
+
+
+{% block content %}
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" {% elif message.tags == 'success' %} class="alert alert-success"{% endif %}  role="alert">
+        {{ message }}</div>
+    {% endfor %}
+</ul>
+{% endif%}
+
+
+  <h1>COnfirma su compra</h1>
+
+  <div class="order-info">
+    <h3>Tu pedido</h3>
+    <ul>
+      {% for item in cart %}
+        <li>
+          {{ item.quantity }}x {{ item.product.name }}
+          <span>${{ item.total_price }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+    <p>Total: ${{ cart.get_total_price }}</p>
+  </div>
+
+  <h3>Introduzca su código de verificación:</h3>
+
+  <form method="post" class="order-form">
+    {{ form2.as_p }}
+    <p><input type="submit" value="Place order"></p>
+    {% csrf_token %}
+  </form>
+
+  <h3>Introduzca sus datos:</h3>
+  <form method="post" class="order-form">
+    {{ form.as_p }}
+    <p><input type="submit" value="Place order"></p>
+    {% csrf_token %}
+  </form>
+{% endblock %}

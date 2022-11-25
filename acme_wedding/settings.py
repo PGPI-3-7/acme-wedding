@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base.apps.BaseConfig',
     'whitenoise.runserver_nostatic',
+    'orders.apps.OrdersConfig',
 
 ]
 
