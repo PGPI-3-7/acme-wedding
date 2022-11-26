@@ -18,34 +18,38 @@
 </ul>
 {% endif%}
 
-
-  <h1>Confirma su compra</h1>
-
-  <div class="order-info">
-    <h3>Tu pedido</h3>
-    <ul>
-      {% for item in cart %}
-        <li>
-          {{ item.quantity }}x {{ item.product.name }}
-          <span>${{ item.total_price }}</span>
-        </li>
-      {% endfor %}
-    </ul>
-    <p>Total: ${{ cart.get_total_price }}</p>
+<div class='container'>
+    <h1>Confirma su compra</h1>
+  <div class='row'>
+    <div class="order-info">
+      <h3>Tu pedido</h3>
+      <ul>
+        {% for item in order_items %}
+          <li>
+            {{ item.quantity }}x {{ item.product.name }}
+            <span>${{ item.total_price }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+      <p>Total: ${{ cart.get_total_price }}</p>
+    </div>
   </div>
+  <div class='row'>
+    <h3>Introduzca su código de verificación:</h3>
 
-  <h3>Introduzca su código de verificación:</h3>
-
-  <form method="post" class="order-form">
-    {{ form2.as_p }}
-    <p><input type="submit" value="Procesar compra"></p>
-    {% csrf_token %}
-  </form>
-
-  <h3>Introduzca sus datos:</h3>
-  <form method="post" class="order-form">
-    {{ form.as_p }}
-    <p><input type="submit" value="Procesar compra"></p>
-    {% csrf_token %}
-  </form>
+    <form method="post" class="order-form">
+      {{ form2.as_p }}
+      <p><input type="submit" class='btn btn-primary' value="Procesar compra"></p>
+      {% csrf_token %}
+    </form>
+  </div>  
+  <div class='row'>
+    <h3>Introduzca sus datos:</h3>
+    <form method="post" class="order-form">
+      {{ form.as_p }}
+      <p><input type="submit" class='btn btn-primary' value="Procesar compra"></p>
+      {% csrf_token %}
+    </form>
+  </div>  
+</div>  
 {% endblock %}

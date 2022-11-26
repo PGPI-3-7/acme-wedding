@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+Seguimiento
+{% endblock %}
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" {% elif message.tags == 'success' %} class="alert alert-success"{% endif %}  role="alert">
+        {{ message }}</div>
+    {% endfor %}
+</ul>
+{% endif%}
+
+
+{% block content %}
+  <h1>Seguimiento de pedidos</h1>
+  <p>Introduzca el referencia de pedido:
+    <form method="post" class="form-group">
+        <input type='text' class='form-control'  name='order'>
+        <p><input type="submit" class='btn btn-primary'  value="Cargar pedido"></p>
+        {% csrf_token %}
+    </form>
+  </br>
+
+  {%if order %}
+  <div class='container'>
+      <div class='row'>
+        <div class="order-info">
+          <h3>Pedido con referencia: {{ order.id }}</h3>
+          
+          <strong>Total: </strong><p>${{ order.get_total_cost }}</p>
+        </div>
+        <strong>Nombre y apellidos: </strong>
+        <p>{{ order.first_name }}  {{ order.last_name }}</p>
+        <strong>Gmail: </strong> <p>{{ order.email }} </p> </br>
+        <strong>Estado del pago: </strong>
+        {% if order.paid is True %}
+        <p>Pagado</p>
+        {%else%}
+        <p>No pagado</p>
+        {% endif %}
+      </div>
+      <div class="row table-responsive">
+        <table class="table table-primary table-hover align-middle">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                {% for item in order_items %}
+                    {% with product=item.product %}
+                        <tr>
+                            <td>
+                                <a href="{{ product.get_absolute_url }}">
+                                    <img src="{% if product.image %}{{ product.image.url }}{% else %}./static/img/no_image.png {% endif %}">
+                                </a>
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <p >{{ item.quantity }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="num">{{ item.price }} €</td>
+                
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+    
+                
+            </tbody>
+        </table>
+    </div>
+  </div>    
+  {%endif%}
+{% endblock %}

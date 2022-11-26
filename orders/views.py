@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from base.models import Product
 from cart.cart import Cart
 from .models import OrderItem, Order
 from .forms import OrderCreateForm, RegisterOrderCreateForm
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
+
 
 
 def order_create(request):
@@ -91,3 +93,20 @@ def order_create(request):
     return render(request,
                   'orders/order/create.html',
                   {'cart': cart, 'form': form, 'form2': form2})
+    
+
+def order_tracking(request):
+    if request.method == 'POST':
+       order_id = request.POST['order']
+       print(order_id)
+       ord = Order.objects.filter(id = order_id)
+       items = OrderItem.objects.filter(order = ord[0])
+       product = Product.objects.all()
+       print(items)
+       if len(ord)>0 :
+            return render(request, 'orders/order/tracking.html',{'order':ord[0], 'order_items':items, 'product':product}) 
+       else:
+           messages.error('Pedido no encontrado')
+    return render(request,  'orders/order/tracking.html',{})  
+           
+        
