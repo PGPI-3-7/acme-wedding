@@ -132,3 +132,6 @@ def politica_envio_view(request):
 
 def datos_empresa_view(request):
     return render(request,'datosempresa.html')
+
+def politica_privacidad(request):
+    return render(request, 'politicaprivacidad.html')

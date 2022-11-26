@@ -10,4 +10,5 @@ urlpatterns = [
     path('producto/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
+    path('politicaprivacidad/', views.politica_privacidad),
 ]
