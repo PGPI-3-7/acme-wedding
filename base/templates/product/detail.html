@@ -29,15 +29,22 @@
                 </a>
             </h2>
             <p class="price">${{ product.price }}</p>
-            {{ product.description|linebreaks }}
-
 
             {%if  product.available == True %}
-            <div class="row">
-                <input class="col-4 mr-2" type="number" value="1" min="1" max="{{product.amount}}" step="1" style="margin-right: 2%; width:30%"/>
-                <button type="button" class="btn btn-primary col-2" type="submit" value="Submit"><i class="bi bi-cart3"></i></button>
-            </div>
+            <form class="row" action="{% url "cart:cart_add" product.id %}" method="post">   
+                <label for="id-form-quantity" class="col-lg-3 col-form-label">Cantidad</label>
+                <div class="col-lg-6">
+                    <input id="id_cantidad" name="cantidad" class="form-control mx-auto" type="number" value="1" min="1" max="{{product.amount}}" step="1"/>
+                </div>
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <div class="col-lg-3 d-grid gap-2">
+                    <button class="btn btn-primary" type="submit" value="Aceptar"><i class="bi bi-cart3"></i></button>
+                </div>
+            </form>
             {% endif %}
+            <br>
+            {{ product.description|linebreaks }}
         </div>
     </div>
     
