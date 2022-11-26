@@ -30,13 +30,14 @@ def product_list(request, category_slug=None):
         products_sol = products_sol.filter(category=category)
 
     # Asigna un formulario a cada producto disponible
+    products = {p:CartAddProductForm() for p in products_ava}
 
     return render(request,
                   'product/catalogo.html',
                   {'category': category,
                    'categories_limit': categories_limit,
                    'categories_all': categories_all,
-                   'products': products_ava,
+                   'products': products,
                    'products_sol': products_sol
                    })
 
