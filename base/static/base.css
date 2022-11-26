@@ -1,3 +1,6 @@
+h1 {
+    margin: 2% auto;
+}
 
 a:link, a:visited, a:active {
     text-decoration:none;
@@ -8,6 +11,7 @@ a:hover {
     color:#77b6e2;
 }
 
+/*
 a.button, input[type="submit"] {
     color:#fff;
     background:#5993bb;
@@ -16,6 +20,7 @@ a.button, input[type="submit"] {
     font-size:14px;
     border:0;
 }
+*/
 
 a.button.light {
     color:#666;
@@ -30,6 +35,7 @@ a.button.light {
     text-align:right;
 }
 
+/*
 table {
     width:100%;
     border-spacing:0;
@@ -60,11 +66,13 @@ thead th, tbody tr.total {
 table.cart {
     margin-bottom:40px;
 }
-
-table.cart img {
+*/
+table img {
     width:180px;
+    height: 180px;
+    object-fit: contain;
 }
-
+/*
 tbody td.num {
     text-align:right;
 }
@@ -78,6 +86,7 @@ form p label, form p input {
     float:left;
     clear:both;
 }
+*/
 
 form p label {
     font-size:14px;
@@ -186,3 +195,7 @@ ul.errorlist {
     margin-bottom:8px;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  height:auto;
+}
