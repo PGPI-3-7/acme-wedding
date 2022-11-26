@@ -2,8 +2,9 @@ from django.shortcuts import render
 from cart.cart import Cart
 from .models import OrderItem, Order
 from .forms import OrderCreateForm, RegisterOrderCreateForm
-from .tasks import order_created, verification_code_created
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.shortcuts import render, get_object_or_404
 
 
 def order_create(request):
@@ -21,9 +22,23 @@ def order_create(request):
                                             quantity=item['quantity'])
                 # clear the cart
                 cart.clear()
-                # launch asynchronous task
-                order_created.delay(order.id)
-                verification_code_created(order.remember_code)
+
+                subject = f'Pedido num. {order.id}'
+                message = f'Querido {order.first_name},\n\n' \
+                          f'Su pedido ha sido registrado exitosamente.\n' \
+                          f'El identificador de su pedido es: {order.id}.'
+                send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
+                sent = True
+
+
+                subject = f'Código de Verificación para Acme Wedding'
+                message = f'Querido {order.first_name},\n\n' \
+                          f'Su código de verificación ha sido creado exitosamente.\n' \
+                          f'El código de verificación es:  {order.remember_code}'
+                send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
+                sent = True
+
+
                 return render(request,
                             'orders/order/created.html',
                             {'order': order})
@@ -31,8 +46,8 @@ def order_create(request):
         if 'user_order_create' in request.POST:
             form = RegisterOrderCreateForm(request.POST)
             if form.is_valid():
-                if(len(Order.objects.filter(remember_code=form.data['user_order_create'])))>0:
-                    aux_order = Order.objects.get(remember_code=form.data['user_order_create'])
+                if(len(Order.objects.filter(remember_code=form.data['remember_code'])))>0:
+                    aux_order = Order.objects.get(remember_code=form.data['remember_code'])
                     order=Order(
                         first_name=aux_order.first_name,
                         last_name=aux_order.last_name,
@@ -40,6 +55,7 @@ def order_create(request):
                         address=aux_order.email,
                         postal_code=aux_order.postal_code,
                         city=aux_order.city)
+                    order.save()
                 else:
                     messages.error(request,'Introduce un nombre válido')
                     form = OrderCreateForm()
@@ -56,8 +72,15 @@ def order_create(request):
                                             quantity=item['quantity'])
                 # clear the cart
                 cart.clear()
-                # launch asynchronous task
-                order_created.delay(order.id)
+
+                subject = f'Pedido num. {order.id}'
+                message = f'Querido {order.first_name},\n\n' \
+                          f'Su pedido ha sido registrado exitosamente.\n' \
+                          f'El identificador de su pedido es: {order.id}.'
+                send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
+                sent = True
+
+
                 return render(request,
                             'orders/order/created.html',
                             {'order': order})

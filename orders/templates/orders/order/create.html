@@ -1,7 +1,7 @@
-{% extends "shop/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
-  Checkout
+  Salida
 {% endblock %}
 
 
@@ -19,7 +19,7 @@
 {% endif%}
 
 
-  <h1>COnfirma su compra</h1>
+  <h1>Confirma su compra</h1>
 
   <div class="order-info">
     <h3>Tu pedido</h3>
@@ -38,14 +38,14 @@
 
   <form method="post" class="order-form">
     {{ form2.as_p }}
-    <p><input type="submit" value="Place order"></p>
+    <p><input type="submit" value="Procesar compra"></p>
     {% csrf_token %}
   </form>
 
   <h3>Introduzca sus datos:</h3>
   <form method="post" class="order-form">
     {{ form.as_p }}
-    <p><input type="submit" value="Place order"></p>
+    <p><input type="submit" value="Procesar compra"></p>
     {% csrf_token %}
   </form>
 {% endblock %}
