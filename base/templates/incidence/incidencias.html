@@ -9,7 +9,7 @@
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-            <div {% if message.tags == 'error' %} class="alert alert-danger mt-3" {% elif message.tags == 'success' %} class="alert alert-success"{% endif %}  role="alert">
+            <div {% if message.tags == 'error' %} class="alert alert-danger mt-3" {% elif message.tags == 'success' %} class="alert alert-success mt-3"{% endif %}  role="alert">
             {{ message }}</div>
         {% endfor %}
     {% endif%}

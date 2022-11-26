@@ -33,7 +33,7 @@ def incidence(request):
             send_mail(subject, message, 'acmewedding.elesemca@gmail.com', ['acmewedding.elesemca@gmail.com'])
             sent = True
 
-            return HttpResponseRedirect('')
+            messages.success(request,'Tu problema se ha enviado correctamente. Muchas gracias :)')
         else:
             print('ERROR')
             messages.error(request,'Los datos introducidos no son válidos')
