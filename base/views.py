@@ -1,8 +1,8 @@
 import random
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Product
-from .forms import ProductForm
+from .models import Category, Product, Incidence
+from .forms import ProductForm, IncidenceForm
 from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 from django.contrib import messages
@@ -20,6 +20,22 @@ def base(request):
     except:
         return render(request,'error.html',{'mensaje': 'Actualmente no hay suficientes productos disponibles como para mostrar el escaparate :('})
     return render(request,'inicio.html',{'p0':productos[0],'p1':productos[1],'p2':productos[2]})
+
+def incidence(request):
+    if request.method == 'POST':
+        form = IncidenceForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            print(cd)
+            incidence = Incidence(email=cd['email'], description=cd['description'])
+            incidence.save()
+            return HttpResponseRedirect('')
+        else:
+            print('ERROR')
+            messages.error(request,'Los datos introducidos no son válidos')
+    else:
+        form = IncidenceForm()
+    return render(request,'incidence/incidencias.html',{'form':form})
 
 def product_list(request, category_slug=None):
     category = None
