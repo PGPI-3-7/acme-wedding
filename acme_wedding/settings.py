@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'whitenoise.runserver_nostatic',
     'orders.apps.OrdersConfig',
+    'cart.apps.CartConfig',
 
 ]
 
@@ -129,3 +130,5 @@ STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+CART_SESSION_ID = 'cart'
