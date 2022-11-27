@@ -142,7 +142,7 @@ class SeleniumCatalogoTestCase(StaticLiveServerTestCase):
 
     def test_enter_catalogo_categories_exist(self):
         self.driver.get(f'{self.live_server_url}/catalogo')
-        self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "nav-item"))==5)
+        self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "nav-item"))==6)
 
     def test_enter_catalogo_product_exist(self):
         self.driver.get(f'{self.live_server_url}/catalogo')
