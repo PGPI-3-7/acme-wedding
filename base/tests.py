@@ -135,7 +135,7 @@ class SeleniumCatalogoTestCase(StaticLiveServerTestCase):
         self.test_product = test_product
 
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)           
             
     def tearDown(self):           
