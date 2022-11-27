@@ -18,7 +18,7 @@
             <tbody class="table-light">
                 {% for item in cart %}
                     {% with product=item.product %}
-                        <tr>
+                        <tr id="item-{{ product.pk }}">
                             <td>
                                 <a href="{{ product.get_absolute_url }}">
                                     <img src="{% if product.image %}{{ product.image.url}}

@@ -59,20 +59,15 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
         #Load base test functionality for decide
         super().setUp()
 
-
-
         options = webdriver.ChromeOptions()
-        options.headless = False
-        self.driver = webdriver.Chrome(options=options)
-
-        super().setUp()            
+        options.headless = True
+        self.driver = webdriver.Chrome(options=options)           
             
     def tearDown(self):           
         super().tearDown()
         self.driver.quit()
         self.product=None
         self.category=None
-
 
     def test_enter_inicio(self):
 

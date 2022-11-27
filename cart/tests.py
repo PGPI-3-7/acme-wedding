@@ -18,6 +18,27 @@ from selenium.webdriver.common.keys import Keys
 
 IMAGE_PATH = 'media/agotado.png'
 
+def create_product():
+    test_category = base_models.Category()
+    test_category.name = 'Test Category'
+    test_category.slug = 'test-category'
+    test_category.save()
+
+    test_product = base_models.Product()
+    test_product.amount = 10
+    test_product.available = True
+    test_product.name = 'Producto Test'
+    test_product.slug = 'producto-test'
+    test_product.description = 'Producto de prueba para la aplicacion'
+    test_product.image = 'ImagenDePruebaXiquillo'
+    test_product.price = 100
+    test_product.created = datetime.datetime.now()
+    test_product.updated = datetime.datetime.now()
+    test_product.category = test_category
+    test_product.save()
+
+    return [test_category,test_product]
+
 class CartTest(TestCase):
     def setUp(self):
         session = SessionStore(None)
@@ -27,27 +48,7 @@ class CartTest(TestCase):
         session.save()
         self.session = session
 
-        #Category
-        test_category = base_models.Category()
-        test_category.name = 'Test Category'
-        test_category.slug = 'test-category'
-        test_category.save()
-        self.test_category = test_category
-
-        #Product
-        test_product = base_models.Product()
-        test_product.amount = 10
-        test_product.available = True
-        test_product.name = 'Producto Test'
-        test_product.slug = 'producto-test'
-        test_product.description = 'Producto de prueba para la aplicacion'
-        test_product.image = SimpleUploadedFile(name='test.png', content=open(IMAGE_PATH,'rb').read(), content_type='image/png')
-        test_product.price = 100
-        test_product.created = datetime.datetime.now()
-        test_product.updated = datetime.datetime.now()
-        test_product.category = test_category
-        test_product.save()
-        self.test_product = test_product
+        self.test_category, self.test_product = create_product()
 
         return super().setUp()
 
@@ -87,7 +88,7 @@ class CartTest(TestCase):
             test_product.name = 'Producto Test {}'.format(i)
             test_product.slug = 'producto-test-{}'.format(i)
             test_product.description = 'Producto de prueba para la aplicacion'
-            test_product.image = SimpleUploadedFile(name='test.png', content=open(IMAGE_PATH,'rb').read(), content_type='image/png')
+            test_product.image = 'TestImage{}'.format(i)
             test_product.price = 100
             test_product.created = datetime.datetime.now()
             test_product.updated = datetime.datetime.now()
@@ -105,8 +106,11 @@ class CartViewTest(StaticLiveServerTestCase):
 
     def setUp(self):
         super().setUp()
+
+        self.test_category, self.test_product = create_product()
+
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)
 
     def tearDown(self):
@@ -114,12 +118,11 @@ class CartViewTest(StaticLiveServerTestCase):
         self.driver.quit()
 
     def test_cart_detail(self):
-        self.driver.get(f'{self.live_server_url}')
-        time.sleep(10)
-        '''
         self.driver.get('{}/cart'.format(self.live_server_url))
-        time.sleep(2)
-        element = self.driver.find_element(By.CSS_SELECTOR,'a.btn.btn-outline-secondary.mx-auto')
-        print(element)
+        self.driver.find_element(By.CSS_SELECTOR,'a.btn.btn-outline-secondary.mx-auto').click()
         self.assertTrue(self.driver.current_url=='{}/catalogo'.format(self.live_server_url))
-        '''
+
+    def test_cart_add(self):
+        self.driver.get('{}/catalogo'.format(self.live_server_url))
+        self.driver.find_element(By.CSS_SELECTOR,'button.btn.btn-primary').click()
+        self.assertTrue(len(self.driver.find_elements(By.ID,'item-{}'.format(self.test_product.pk)))==1)
