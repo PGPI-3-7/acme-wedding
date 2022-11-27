@@ -1,18 +1,14 @@
 import random
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Product
-from .forms import ProductForm
+from .models import Category, Product, Incidence
+from .forms import ProductForm, IncidenceForm
 from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 from django.contrib import messages
-
-
-
-
-def metodo_pago_view(request):
-    return render(request,'metodopago.html')
-
+from django.core.mail import send_mail
+from cart.forms import CartAddProductForm
+from django.views.decorators.http import require_http_methods
 
 def base(request):
     try:
@@ -21,39 +17,65 @@ def base(request):
         return render(request,'error.html',{'mensaje': 'Actualmente no hay suficientes productos disponibles como para mostrar el escaparate :('})
     return render(request,'inicio.html',{'p0':productos[0],'p1':productos[1],'p2':productos[2]})
 
+@require_http_methods(["GET", "POST"])
+def incidence(request):
+    if request.method == 'POST':
+        form = IncidenceForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            correo = cd['email']
+            desc = cd['description']
+            incidence = Incidence(email=correo, description=desc)
+            incidence.save()
+
+            subject = f'Has recibido una evidencia'
+            message = f'Hemos recibido por parte de ACME Wedding un problema a solucionar,\n\n' \
+                        f'Para encontrar con la persona que encontró el error contactar: {correo}.\n' \
+                        f'El problema es: {desc}.'
+            send_mail(subject, message, 'acmewedding.elesemca@gmail.com', ['acmewedding.elesemca@gmail.com'])
+            sent = True
+
+            messages.success(request,'Tu problema se ha enviado correctamente. Muchas gracias :)')
+        else:
+            print('ERROR')
+            messages.error(request,'Los datos introducidos no son válidos')
+    else:
+        form = IncidenceForm()
+    return render(request,'incidence/incidencias.html',{'form':form})
+
 def product_list(request, category_slug=None):
     category = None
-    cat = Category.objects.all()
-    categories=[]
-    for c in cat:
-        if len(Product.objects.filter(category=c))>0:
-            categories.append(c)
+    categories = Category.objects.filter(pk__in=set( Product.objects.all().values_list('category',flat=True) ))
 
     categories_limit=categories[0:3]
     categories_all=categories[3:]
     products_ava = Product.objects.filter(available=True)
     products_sol = Product.objects.filter(available=False)
-    print(Product.objects.all().values())
+    
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products_ava = products_ava.filter(category=category)
         products_sol = products_sol.filter(category=category)
+
+    # Asigna un formulario a cada producto disponible
+    products = {p:CartAddProductForm() for p in products_ava}
+
     return render(request,
                   'product/catalogo.html',
                   {'category': category,
                    'categories_limit': categories_limit,
                    'categories_all': categories_all,
-                   'products': products_ava,
+                   'products': products,
                    'products_sol': products_sol
                    })
-
 
 def product_detail(request, id, slug):
     if request.method=='GET':
         product = get_object_or_404(Product,
                                     id=id,
                                     slug=slug)
-        
+        cart_product_form = CartAddProductForm()
+
         admin = request.user.is_staff
         categories = Category.objects.exclude(name = product.category)
         
@@ -61,7 +83,8 @@ def product_detail(request, id, slug):
         return render(request,'product/detail.html',
                     {'product': product,
                     'admin': admin,
-                    'categories': categories})
+                    'categories': categories,
+                    'cart_product_form':cart_product_form})
 
     elif request.method=='POST':
         form = ProductForm(request.POST,request.FILES)
@@ -126,7 +149,8 @@ def product_detail(request, id, slug):
         
         return  HttpResponseRedirect('/producto/{}/{}/'.format(id,product.slug))
 
-    
+def metodo_pago_view(request):
+    return render(request,'metodopago.html')
     
 def opciones_entrega_view(request):
     return render(request,'opcionesentrega.html')
