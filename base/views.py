@@ -8,6 +8,7 @@ from django.utils.text import slugify
 from django.contrib import messages
 from django.core.mail import send_mail
 from cart.forms import CartAddProductForm
+from django.views.decorators.http import require_http_methods
 
 def base(request):
     try:
@@ -16,6 +17,7 @@ def base(request):
         return render(request,'error.html',{'mensaje': 'Actualmente no hay suficientes productos disponibles como para mostrar el escaparate :('})
     return render(request,'inicio.html',{'p0':productos[0],'p1':productos[1],'p2':productos[2]})
 
+@require_http_methods(["GET", "POST"])
 def incidence(request):
     if request.method == 'POST':
         form = IncidenceForm(request.POST)

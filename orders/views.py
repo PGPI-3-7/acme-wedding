@@ -5,8 +5,9 @@ from .forms import OrderCreateForm, RegisterOrderCreateForm
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_http_methods
 
-
+@require_http_methods(["GET", "POST"])
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
