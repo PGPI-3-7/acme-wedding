@@ -30,13 +30,13 @@ def order_create(request):
                 send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
                 sent = True
 
-
-                subject = f'Código de Verificación para Acme Wedding'
-                message = f'Querido {order.first_name},\n\n' \
-                          f'Su código de verificación ha sido creado exitosamente.\n' \
-                          f'El código de verificación es:  {order.remember_code}'
-                send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
-                sent = True
+                if order.remember==True:
+                    subject = f'Código de Verificación para Acme Wedding'
+                    message = f'Querido {order.first_name},\n\n' \
+                            f'Su código de verificación ha sido creado exitosamente.\n' \
+                            f'El código de verificación es:  {order.remember_code}'
+                    send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
+                    sent = True
 
 
                 return render(request,
