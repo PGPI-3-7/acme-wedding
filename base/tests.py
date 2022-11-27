@@ -62,7 +62,7 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
 
 
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
         self.driver = webdriver.Chrome(options=options)
 
         super().setUp()            
@@ -107,6 +107,82 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
         self.category=None
         self.driver.get(f'{self.live_server_url}')
         self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "btn-danger"))==1)
+
+
+class SeleniumCatalogoTestCase(StaticLiveServerTestCase):
+    
+    def setUp(self):
+        super().setUp()
+
+        #Category
+        test_category = Category()
+        test_category.name = 'Test Category'
+        test_category.slug = 'test-category'
+        test_category.save()
+        self.test_category = test_category
+
+        #Product
+        test_product = Product()
+        test_product.amount = 10
+        test_product.available = True
+        test_product.name = 'Producto Test'
+        test_product.slug = 'producto-test'
+        test_product.description = 'Producto de prueba para la aplicacion'
+        test_product.image = 'ImagenDePruebaXiquillo'
+        test_product.price = 100
+        test_product.category = test_category
+        test_product.save()
+        self.test_product = test_product
+
+        options = webdriver.ChromeOptions()
+        options.headless = False
+        self.driver = webdriver.Chrome(options=options)           
+            
+    def tearDown(self):           
+        super().tearDown()
+        self.driver.quit()
+        self.product=None
+        self.category=None
+
+
+    def test_enter_catalogo_categories_exist(self):
+        self.driver.get(f'{self.live_server_url}/catalogo')
+        self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "nav-item"))==5)
+
+    def test_enter_catalogo_product_exist(self):
+        self.driver.get(f'{self.live_server_url}/catalogo')
+        self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "card"))==1)
+
+    def test_catalogo_filter_catgory(self):
+
+                #Category
+        test_category = Category()
+        test_category.name = 'Test Category2'
+        test_category.slug = 'test-category2'
+        test_category.save()
+        self.test_category = test_category
+        #Product
+        test_product = Product()
+        test_product.amount = 10
+        test_product.available = True
+        test_product.name = 'Producto Test'
+        test_product.slug = 'producto-test'
+        test_product.description = 'Producto de prueba para la aplicacion'
+        test_product.image = 'ImagenDePruebaXiquillo'
+        test_product.price = 100
+        test_product.category = test_category
+        test_product.save()
+        self.test_product = test_product
+
+        self.driver.get(f'{self.live_server_url}/catalogo')
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Test Category')]").click()
+        self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "card"))==1)
+
+
+    def test_enter_catalogo_product_exist(self):
+        self.driver.get(f'{self.live_server_url}/catalogo')
+        self.driver.find_element_by_xpath("//*[contains(text(), 'Producto Test')]").click()
+        self.assertTrue(len(self.driver.find_elements_by_xpath("//*[contains(text(), 'Producto de prueba para la aplicacion')]"))==1)
 
 
 
