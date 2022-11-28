@@ -15,3 +15,4 @@ class RegisterOrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
         fields=[]
+        
