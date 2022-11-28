@@ -142,11 +142,11 @@ class SeleniumCatalogoTestCase(StaticLiveServerTestCase):
 
     def test_enter_catalogo_categories_exist(self):
         self.driver.get(f'{self.live_server_url}/catalogo')
-        self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "nav-item"))==6)
+        self.assertTrue(len(self.driver.find_elements(By.CSS_SELECTOR, ".nav-item.nav-link"))==(Category.objects.count()+1))
 
     def test_enter_catalogo_product_exist(self):
         self.driver.get(f'{self.live_server_url}/catalogo')
-        self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "card"))==1)
+        self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "card"))==Product.objects.count())
 
     def test_catalogo_filter_catgory(self):
 
