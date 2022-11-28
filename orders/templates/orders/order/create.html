@@ -19,22 +19,50 @@
 {% endif%}
 
 <div class='container'>
-    <h1>Confirma su compra</h1>
+    
   <div class='row'>
     <div class="order-info">
-      <h3>Tu pedido</h3>
-      <ul>
-        {% for item in order_items %}
-          <li>
-            {{ item.quantity }}x {{ item.product.name }}
-            <span>${{ item.total_price }}</span>
-          </li>
-        {% endfor %}
-      </ul>
-      <p>Total: ${{ cart.get_total_price }}</p>
+      <h1>Confirma su compra</h1>
+      <div class="row table-responsive">
+        <table class="table table-primary table-hover align-middle">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                {% for item in cart %}
+                    {% with product=item.product %}
+                        <tr>
+                            <td>
+                                <a href="{{ product.get_absolute_url }}">
+                                    <img src="{% if product.image %}{{ product.image.url }}{% else %}./static/img/no_image.png {% endif %}">
+                                </a>
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <p >{{ item.quantity }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="num">{{ item.price }} €</td>
+                
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+    
+                
+            </tbody>
+        </table>
+
     </div>
   </div>
-  <div class='row'>
+  <div class='row mt-5'>
     <h3>Introduzca su código de verificación:</h3>
 
     <form method="post" class="order-form">
