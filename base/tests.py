@@ -178,17 +178,3 @@ class SeleniumCatalogoTestCase(StaticLiveServerTestCase):
         self.driver.get(f'{self.live_server_url}/catalogo')
         self.driver.find_element_by_xpath("//*[contains(text(), 'Producto Test')]").click()
         self.assertTrue(len(self.driver.find_elements_by_xpath("//*[contains(text(), 'Producto de prueba para la aplicacion')]"))==1)
-
-
-
-
-
-
-
-    
-
-
-
-
-       
-
