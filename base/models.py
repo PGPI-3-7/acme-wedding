@@ -20,8 +20,14 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('base:product_list_by_category',
                        args=[self.slug])
+    
+class Incidence(models.Model):
+    email = models.EmailField(null=False)
+    description = models.TextField(blank=False)
 
-
+    def __str__(self):
+        return "%s:  %s" % (self.email,self.description)
+    
 class Product(models.Model):
     category = models.ForeignKey(Category,
                                  related_name='products',

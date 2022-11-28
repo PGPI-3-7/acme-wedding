@@ -1,5 +1,6 @@
 from django.db import models
 from base.models import Product
+from django.urls import reverse
 import random
 import string
 
@@ -16,7 +17,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     remember=models.BooleanField(default=False)
     remember_code=models.CharField(max_length=10,editable=False, blank=True,default='')
-
+    id= models.CharField(max_length=10,editable=False, blank=True,default='', primary_key=True)
     class Meta:
         ordering = ('-created',)
 
@@ -26,9 +27,16 @@ class Order(models.Model):
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
 
+
+
+
     def save(self, *args, **kwargs):
         if self.remember==True:
             self.remember_code=''.join([random.choice( string.ascii_uppercase +
+                                            string.ascii_lowercase +
+                                            string.digits)
+                                            for n in range(10)])
+        self.id=''.join([random.choice( string.ascii_uppercase +
                                             string.ascii_lowercase +
                                             string.digits)
                                             for n in range(10)])
