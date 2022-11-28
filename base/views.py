@@ -51,7 +51,6 @@ def product_list(request, category_slug=None):
     categories_all=categories[3:]
     products_ava = Product.objects.filter(available=True)
     products_sol = Product.objects.filter(available=False)
-    
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products_ava = products_ava.filter(category=category)
