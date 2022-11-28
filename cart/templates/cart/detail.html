@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Carro de la compra</h1>
     <div class="row table-responsive">
-        <table class="table table-primary table-hover align-middle">
+        <table class="table table-primary table-hover align-middle" aria-describedby="Carrito de la compra">
             <thead>
                 <tr>
                     <th></th>
@@ -21,7 +21,7 @@
                         <tr id="item-{{ product.pk }}">
                             <td>
                                 <a href="{{ product.get_absolute_url }}">
-                                    <img src="{% if product.image %}{{ product.image.url}}
+                                    <img alt="Imagen del producto" src="{% if product.image %}{{ product.image.url}}
                                     {% else %}{% static "img/no_image.png" %}{% endif %}">
                                 </a>
                             </td>

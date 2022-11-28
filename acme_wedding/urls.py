@@ -25,6 +25,7 @@ urlpatterns = [
     path('politicaenvio/',base_views.politica_envio_view),
     path('opcionesentrega/',base_views.opciones_entrega_view),
     path('metodopago/',base_views.metodo_pago_view),
+    path('terminosuso/',base_views.terminos_uso_view),
     path('', include('base.urls', namespace='base')),
     path('cart/', include('cart.urls', namespace='cart')),
 ]
