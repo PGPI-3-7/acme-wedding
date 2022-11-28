@@ -11,4 +11,5 @@ urlpatterns = [
     path('incidencias',views.incidence, name="incidence_list"),
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
+
 ]
