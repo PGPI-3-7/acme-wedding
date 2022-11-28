@@ -1,4 +1,4 @@
-name: Python application
+name: Acme Wedding
 
 on:
   push:
