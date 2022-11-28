@@ -7,3 +7,7 @@ class ProductForm(forms.Form):
     description = forms.CharField(label='description')
     price = forms.FloatField(label='price')
     #image = forms.ImageField(label='image')
+
+class IncidenceForm(forms.Form):
+    email = forms.EmailField(label="correo")
+    description = forms.CharField(label="description")
