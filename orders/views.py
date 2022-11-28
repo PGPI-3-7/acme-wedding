@@ -28,7 +28,7 @@ def order_create(request):
                 subject = f'Pedido num. {order.id}'
                 message = f'Querido {order.first_name},\n\n' \
                           f'Su pedido ha sido registrado exitosamente.\n' \
-                          f'El identificador de su pedido es: {order.id}.'
+                          f'El identificador de su pedido es: {order.id}'
                 send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
                 sent = True
 
@@ -78,7 +78,7 @@ def order_create(request):
                 subject = f'Pedido num. {order.id}'
                 message = f'Querido {order.first_name},\n\n' \
                           f'Su pedido ha sido registrado exitosamente.\n' \
-                          f'El identificador de su pedido es: {order.id}.'
+                          f'El identificador de su pedido es: {order.id}'
                 send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
                 sent = True
 
@@ -98,15 +98,13 @@ def order_create(request):
 def order_tracking(request):
     if request.method == 'POST':
        order_id = request.POST['order']
-       print(order_id)
-       ord = Order.objects.filter(id = order_id)
-       items = OrderItem.objects.filter(order = ord[0])
-       product = Product.objects.all()
-       print(items)
-       if len(ord)>0 :
+       if len(Order.objects.filter(id = order_id)) >0:
+            ord = Order.objects.filter(id = order_id)
+            items = OrderItem.objects.filter(order = ord[0])
+            product = Product.objects.all()
             return render(request, 'orders/order/tracking.html',{'order':ord[0], 'order_items':items, 'product':product}) 
        else:
-           messages.error('Pedido no encontrado')
-    return render(request,  'orders/order/tracking.html',{})  
+           messages.error(request, 'Pedido no encontrado')
+    return render(request,  'orders/order/tracking.html')  
            
         

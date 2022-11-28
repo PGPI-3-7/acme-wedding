@@ -5,6 +5,10 @@ Seguimiento
 {% endblock %}
 
 
+
+
+
+{% block content %}
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -13,14 +17,11 @@ Seguimiento
     {% endfor %}
 </ul>
 {% endif%}
-
-
-{% block content %}
   <h1>Seguimiento de pedidos</h1>
   <p>Introduzca el referencia de pedido:
     <form method="post" class="form-group">
-        <input type='text' class='form-control'  name='order'>
-        <p><input type="submit" class='btn btn-primary'  value="Cargar pedido"></p>
+        <input type='text' class='form-control' style='width:50%'  name='order'>
+        <p><input type="submit" class='btn btn-primary' value="Cargar pedido"></p>
         {% csrf_token %}
     </form>
   </br>
@@ -44,7 +45,7 @@ Seguimiento
         {% endif %}
       </div>
       <div class="row table-responsive">
-        <table class="table table-primary table-hover align-middle">
+        <table arial-label="Pedido" class="table table-primary table-hover align-middle">
             <thead>
                 <tr>
                     <th></th>
@@ -59,7 +60,7 @@ Seguimiento
                         <tr>
                             <td>
                                 <a href="{{ product.get_absolute_url }}">
-                                    <img src="{% if product.image %}{{ product.image.url }}{% else %}./static/img/no_image.png {% endif %}">
+                                    <img alt="Imagen del producto" src="{% if product.image %}{{ product.image.url }}{% else %}./static/img/no_image.png {% endif %}">
                                 </a>
                             </td>
                             <td>{{ product.name }}</td>

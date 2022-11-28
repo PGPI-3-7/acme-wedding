@@ -19,14 +19,14 @@
         {% for c in categories_limit %}
             <a id="category-{{ forloop.counter }}" {% if category.slug == c.slug %} class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
         {% endfor %}
-        <li class="nav-item dropdown">
+        <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle dropdown-pers" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Más</a>
             <ul class="dropdown-menu">
             {% for c in categories_all %}
                 <li><a {% if category.slug == c.slug %} class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
             {% endfor %}
             </ul>
-        </li>
+        </div>
     </nav>
 
     <div class=" justify-content-center mt-100">
@@ -36,7 +36,7 @@
                 <div class="product-wrapper card">
                     <div class="product-img"> 
                         <a href="{{ product.get_absolute_url }}">
-                            <img class="card-img-top" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                            <img class="card-img-top" alt="imagen del producto" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
                         </a>	
                         <span class="text-center">{{ product.price }}€</span>
                         <div class="row product-action"> 
@@ -63,8 +63,8 @@
                 <div class="product-wrapper card">
                     <div class="product-img"> 
                         <a href="{{ product.get_absolute_url }}">
-                            <img class="card-img-top sold-out-logo" src="/media/agotado.png">
-                            <img class="card-img-top img-sold-out" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                            <img alt="imagen de producto agotado" class="card-img-top sold-out-logo" src="/media/agotado.png">
+                            <img alt="imagen del producto" class="card-img-top img-sold-out" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
                         </a>	
                         <span class="text-center price-sold">{{ product.price }} €</span>
                         <div class="product-action"> 

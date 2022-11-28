@@ -16,9 +16,9 @@
         <div class="col-lg-6" >
             <div class="card align-items-center" style="border: none;">
                 {%if product.available == False %}
-                <img class="sold-out-logo"  src="/media/agotado.png" >
+                <img alt="imagen de producto agotado" class="sold-out-logo"  src="/media/agotado.png" >
                 {% endif %}
-                <img class="img-sold-out" style=" object-fit:scale-down" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                <img alt="imagen del producto" class="img-sold-out" style=" object-fit:scale-down" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
             </div>
         </div>
         <div class="col-lg-6">
@@ -67,9 +67,9 @@
             <div class="col-lg-6" >
                 <div class="card align-items-center" style="border: none;">
                     {%if product.available == False %}
-                    <img class="sold-out-logo"  src="/media/agotado.png" >
+                    <img alt="imagen de producto agotado" class="sold-out-logo"  src="/media/agotado.png" >
                     {% endif %}
-                    <img class="img-sold-out" style=" object-fit:scale-down" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                    <img alt="imagen del producto" class="img-sold-out" style=" object-fit:scale-down" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
                 </div>
                 <input class="form-control" type="file" name="image" ></input>
             </div>
