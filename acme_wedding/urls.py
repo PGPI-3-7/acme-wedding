@@ -27,6 +27,7 @@ urlpatterns = [
     path('metodopago/',base_views.metodo_pago_view),
     path('terminosuso/',base_views.terminos_uso_view),
     path('', include('base.urls', namespace='base')),
+    path('cart/', include('cart.urls', namespace='cart')),
 ]
 
 if settings.DEBUG:

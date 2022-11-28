@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base.apps.BaseConfig',
     'whitenoise.runserver_nostatic',
+    'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
 
 ]
 
@@ -128,3 +130,14 @@ STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+CART_SESSION_ID = 'cart'
+
+
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'acmewedding.elesemca@gmail.com'
+EMAIL_HOST_PASSWORD = 'zcttiikxsdaeneyt'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
