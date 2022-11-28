@@ -36,7 +36,8 @@ jobs:
     - name: Run tests
       run: |
         coverage run --branch --source=. ./manage.py test  --keepdb 
-        coverage xml 
+        coverage xml
+        ls
 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
