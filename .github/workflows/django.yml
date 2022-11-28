@@ -30,7 +30,7 @@ jobs:
 
     - name: Run migrations
       run: |
-        python manage.py makemigrations.py
+        python manage.py makemigrations
         python manage.py migrate
 
     - name: Run tests
