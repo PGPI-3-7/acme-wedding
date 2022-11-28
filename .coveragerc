@@ -1,0 +1,7 @@
+[run]
+branch = True
+source=
+    ./acme_wedding/
+    ./base/
+    ./cart/
+    ./orders/
