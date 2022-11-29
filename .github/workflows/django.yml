@@ -1,16 +1,24 @@
-name: Python application
+name: Acme Wedding
 
-on: [push]
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+      with:
+            fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
     - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: 3.8
 
@@ -18,7 +26,20 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install coverage
 
     - name: Run migrations
       run: |
+        python manage.py makemigrations
         python manage.py migrate
+
+    - name: Run tests
+      run: |
+        coverage run ./manage.py test --keepdb 
+        coverage xml
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

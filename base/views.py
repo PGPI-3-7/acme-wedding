@@ -51,7 +51,6 @@ def product_list(request, category_slug=None):
     categories_all=categories[3:]
     products_ava = Product.objects.filter(available=True)
     products_sol = Product.objects.filter(available=False)
-    
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products_ava = products_ava.filter(category=category)
@@ -160,6 +159,9 @@ def politica_envio_view(request):
 
 def datos_empresa_view(request):
     return render(request,'datosempresa.html')
+
+def politica_privacidad(request):
+    return render(request, 'politicaprivacidad.html')
 
 def terminos_uso_view(request):
     return render(request,'terminosuso.html')

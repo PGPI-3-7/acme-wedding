@@ -28,7 +28,7 @@ def order_create(request):
                 subject = f'Pedido num. {order.id}'
                 message = f'Querido {order.first_name},\n\n' \
                           f'Su pedido ha sido registrado exitosamente.\n' \
-                          f'El identificador de su pedido es: {order.id}.'
+                          f'El identificador de su pedido es: {order.id}'
                 send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
                 sent = True
 
@@ -78,7 +78,7 @@ def order_create(request):
                 subject = f'Pedido num. {order.id}'
                 message = f'Querido {order.first_name},\n\n' \
                           f'Su pedido ha sido registrado exitosamente.\n' \
-                          f'El identificador de su pedido es: {order.id}.'
+                          f'El identificador de su pedido es: {order.id}'
                 send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
                 sent = True
 
