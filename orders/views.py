@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.urls import reverse
+from django.shortcuts import render, redirect
 from base.models import Product
 from cart.cart import Cart
 from .models import OrderItem, Order
 from .forms import OrderCreateForm, RegisterOrderCreateForm
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
 
 @require_http_methods(["GET", "POST"])
@@ -41,9 +42,9 @@ def order_create(request):
                     sent = True
 
 
-                return render(request,
-                            'orders/order/created.html',
-                            {'order': order})
+            request.session['order_id'] = order.id
+            # redirect for payment
+            return redirect(reverse('payment:process'))
                             
         if 'user_order_create' in request.POST:
             form = RegisterOrderCreateForm(request.POST)
@@ -83,9 +84,9 @@ def order_create(request):
                 sent = True
 
 
-                return render(request,
-                            'orders/order/created.html',
-                            {'order': order})
+                request.session['order_id'] = order.id
+            # redirect for payment
+                return redirect(reverse('payment:process'))
 
     else:
         form = OrderCreateForm()

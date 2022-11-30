@@ -18,6 +18,8 @@ class Order(models.Model):
     remember=models.BooleanField(default=False)
     remember_code=models.CharField(max_length=10,editable=False, blank=True,default='')
     id= models.CharField(max_length=10,editable=False, blank=True,default='', primary_key=True)
+    braintree_id = models.CharField(max_length=150, blank=True)
+
     class Meta:
         ordering = ('-created',)
 

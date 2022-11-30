@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 
 ]
 
@@ -137,3 +138,18 @@ EMAIL_HOST_USER = 'acmewedding.elesemca@gmail.com'
 EMAIL_HOST_PASSWORD = 'zcttiikxsdaeneyt'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = '8hmhk9z9ndqgwkd5'  # Merchant ID
+BRAINTREE_PUBLIC_KEY = '5t8rz8xjdxwnd6dt'   # Public Key
+BRAINTREE_PRIVATE_KEY = 'b53523e7225e914439f43f197c51567c'  # Private key
+
+import braintree
+
+BRAINTREE_CONF = braintree.Configuration(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
