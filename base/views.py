@@ -64,12 +64,14 @@ def product_list(request, category_slug=None):
     # Asigna un formulario a cada producto disponible
     products_ava_dict = {p:CartAddProductForm() for p in products_ava}
 
+    admin = request.user.is_staff
     return render(request,'product/catalogo.html',
                   {'category': category,
                    'categories_limit': categories_limit,
                    'categories_all': categories_all,
                    'products': products_ava_dict,
-                   'products_sol': products_sol
+                   'products_sol': products_sol,
+                   'admin': admin
                    })
 
 def product_detail(request, id, slug):
