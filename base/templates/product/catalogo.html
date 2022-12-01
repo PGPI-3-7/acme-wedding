@@ -37,19 +37,21 @@
                             <img class="card-img-top" alt="imagen del producto" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
                         </a>	
                         <span class="text-center">{{ product.price }}€</span>
-                        <div class="row product-action"> 
+                        <div class="row product-action" style="z-index: 2;"> 
                             <div class="product-action-style">
                                 <h5 class="col-lg-12 card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
-                                <form class="row mx-auto" action="{% url "cart:cart_add" product.id %}" method="post" style="width: 80%;"> 
-                                    <div class="col-lg-12 mx-auto">
-                                        <input id="id_cantidad" name="cantidad" class="form-control mx-auto" type="number" value="1" min="1" max="{{product.amount}}" step="1"/>
-                                    </div>
-                                    {{ form }}
-                                    {% csrf_token %}
-                                    <div class="col-lg-12 d-grid gap-2 mx-auto">
-                                        <button class="btn btn-primary" type="submit" value="Aceptar"><em class="bi bi-cart3"></em></button>
-                                    </div>
-                                </form>
+                                {%if admin == False %}
+                                    <form class="row mx-auto" action="{% url "cart:cart_add" product.id %}" method="post" style="width: 80%;"> 
+                                        <div class="col-lg-12 mx-auto">
+                                            <input id="id_cantidad" name="cantidad" class="form-control mx-auto" type="number" value="1" min="1" max="{{product.amount}}" step="1"/>
+                                        </div>
+                                        {{ form }}
+                                        {% csrf_token %}
+                                        <div class="col-lg-12 d-grid gap-2 mx-auto">
+                                            <button class="btn btn-primary" type="submit" value="Aceptar"><em class="bi bi-cart3"></em></button>
+                                        </div>
+                                    </form>
+                                {% endif %}
                             </div> 
                         </div> 
                     </div> 
@@ -65,7 +67,7 @@
                             <img alt="imagen del producto" class="card-img-top img-sold-out" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
                         </a>	
                         <span class="text-center price-sold">{{ product.price }} €</span>
-                        <div class="product-action"> 
+                        <div class="row product-action" style="z-index: 2;"> 
                             <div class="product-action-style">
                                 <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
                             </div> 

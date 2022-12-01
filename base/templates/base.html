@@ -60,6 +60,16 @@
             </div>
         </div>
     </nav>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <div {% if message.tags == 'error' %} class="alert alert-danger" {% elif message.tags == 'success' %} class="alert alert-success"{% endif %}  role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif%}
     <div id="content" class="container">
         {% block content %}
         {% endblock %}

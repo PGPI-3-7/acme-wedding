@@ -147,3 +147,15 @@ a:link, a:visited, a:active {
     position: absolute;
     z-index: 1;
   }
+
+.details-img-sold-out{
+    position: relative;
+    width: 100%;
+    z-index: 0;
+  }
+.detials-sold-out-logo{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
