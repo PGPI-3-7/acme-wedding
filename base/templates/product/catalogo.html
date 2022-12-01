@@ -2,19 +2,15 @@
 {% load static %}
 
 {% block title %}
-  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "product/catalogo.css" %}">
 {% endblock %}
 
 {% block content %}
-
-
-<link rel="stylesheet" href="{% static "product/catalogo.css" %}">
-
-<div class="container" >
-    <br>
-  
-    <nav class="nav nav-pills nav-justified sticky">
-
+    <nav class="nav nav-pills nav-justified my-4 sticky">
         <a  {% if not category %}class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{% url "base:product_list" %}">Todas</a>
         {% for c in categories_limit %}
             <a id="category-{{ forloop.counter }}" {% if category.slug == c.slug %} class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
@@ -29,7 +25,9 @@
         </div>
     </nav>
 
-    <div class=" justify-content-center mt-100">
+    <hr>
+
+    <div class=" justify-content-center">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5"> 
             {% for product,form in products.items %}
             <div class="col mb-4">
@@ -78,5 +76,4 @@
             {% endfor %}
         </div> 
     </div>
-</div>  
 {% endblock %}
