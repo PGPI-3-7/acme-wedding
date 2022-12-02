@@ -18,10 +18,14 @@ def order_create(request):
             if form.is_valid():
                 order = form.save()
                 for item in cart:
+                    product = item['product']
+                    cantidad = item['quantity']
                     OrderItem.objects.create(order=order,
                                             product=item['product'],
                                             price=item['price'],
                                             quantity=item['quantity'])
+                    product.amount = product.amount - cantidad
+                    product.save()
                 # clear the cart
                 cart.clear()
 
@@ -68,10 +72,14 @@ def order_create(request):
                 
 
                 for item in cart:
+                    product = item['product']
+                    cantidad = item['quantity']
                     OrderItem.objects.create(order=order,
-                                            product=item['product'],
+                                            product=product,
                                             price=item['price'],
-                                            quantity=item['quantity'])
+                                            quantity=cantidad)
+                    product.amount = product.amount - cantidad
+                    product.save()
                 # clear the cart
                 cart.clear()
 
