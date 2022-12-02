@@ -2,6 +2,7 @@ import braintree
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from orders.models import Order
+from django.core.mail import send_mail
 
 
 # instantiate Braintree payment gateway
@@ -11,6 +12,8 @@ gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
 def payment_process(request):
     order_id = request.session.get('order_id')
     order = get_object_or_404(Order, id=order_id)
+    print("="*50)
+    print(order)
     total_cost = order.get_total_cost()
 
     if request.method == 'POST':
@@ -31,6 +34,21 @@ def payment_process(request):
             order.braintree_id = result.transaction.id
             order.save()
             # launch asynchronous task
+            
+            subject = f'Pedido num. {order.id}'
+            message = f'Querido {order.first_name},\n\n' \
+                    f'Su pedido ha sido registrado exitosamente.\n' \
+                    f'El identificador de su pedido es: {order.id}'
+            send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
+            sent = True
+
+            if order.remember==True:
+                subject = f'Código de Verificación para Acme Wedding'
+                message = f'Querido {order.first_name},\n\n' \
+                        f'Su código de verificación ha sido creado exitosamente.\n' \
+                        f'El código de verificación es:  {order.remember_code}'
+                send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
+                sent = True
 
             return render(request,
                             'orders/order/created.html',
@@ -47,6 +65,7 @@ def payment_process(request):
 
 
 def payment_done(request):
+
     return render(request, 'orders/created.html')
 
 

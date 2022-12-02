@@ -16,8 +16,12 @@ def order_create(request):
         
         if 'order_create' in request.POST:
             form = OrderCreateForm(request.POST)
+            print("="*50)
+            print(form.is_valid)
             if form.is_valid():
                 order = form.save()
+                print("="*50)
+                print(order)
                 for item in cart:
                     OrderItem.objects.create(order=order,
                                             product=item['product'],
@@ -26,25 +30,35 @@ def order_create(request):
                 # clear the cart
                 cart.clear()
 
-                subject = f'Pedido num. {order.id}'
-                message = f'Querido {order.first_name},\n\n' \
-                          f'Su pedido ha sido registrado exitosamente.\n' \
-                          f'El identificador de su pedido es: {order.id}'
-                send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
-                sent = True
-
-                if order.remember==True:
-                    subject = f'Código de Verificación para Acme Wedding'
+                if(order.tipo_pago=='contrarrembolso'):
+                    subject = f'Pedido num. {order.id}'
                     message = f'Querido {order.first_name},\n\n' \
-                            f'Su código de verificación ha sido creado exitosamente.\n' \
-                            f'El código de verificación es:  {order.remember_code}'
+                            f'Su pedido ha sido registrado exitosamente.\n' \
+                            f'El identificador de su pedido es: {order.id}'
                     send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
                     sent = True
 
+                    if order.remember==True:
+                        subject = f'Código de Verificación para Acme Wedding'
+                        message = f'Querido {order.first_name},\n\n' \
+                                f'Su código de verificación ha sido creado exitosamente.\n' \
+                                f'El código de verificación es:  {order.remember_code}'
+                        send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
+                        sent = True
 
-            request.session['order_id'] = order.id
+                    return render(request,'orders/order/created.html',{'order': order})
+
+                request.session['order_id'] = order.id
             # redirect for payment
-            return redirect(reverse('payment:process'))
+                return redirect(reverse('payment:process'))
+            else:
+                messages.error(request, 'Formulario con errores')
+                form = OrderCreateForm()
+                form2= RegisterOrderCreateForm() 
+                return render(request,
+                  'orders/order/create.html',
+                  {'cart': cart, 'form': form, 'form2': form2})
+
                             
         if 'user_order_create' in request.POST:
             form = RegisterOrderCreateForm(request.POST)
@@ -57,7 +71,9 @@ def order_create(request):
                         email=aux_order.email,
                         address=aux_order.email,
                         postal_code=aux_order.postal_code,
-                        city=aux_order.city)
+                        city=aux_order.city,
+                        tipo_pago = form.data['tipo_pago']
+                        )
                     order.save()
                 else:
                     messages.error(request,'Introduce un nombre válido')
@@ -76,16 +92,18 @@ def order_create(request):
                 # clear the cart
                 cart.clear()
 
-                subject = f'Pedido num. {order.id}'
-                message = f'Querido {order.first_name},\n\n' \
-                          f'Su pedido ha sido registrado exitosamente.\n' \
-                          f'El identificador de su pedido es: {order.id}'
-                send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
-                sent = True
+                if(order.tipo_pago=='contrarrembolso'):
+                    subject = f'Pedido num. {order.id}'
+                    message = f'Querido {order.first_name},\n\n' \
+                            f'Su pedido ha sido registrado exitosamente.\n' \
+                            f'El identificador de su pedido es: {order.id}'
+                    send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
+                    sent = True
+                    return render(request,'orders/order/created.html',{'order': order})
 
 
                 request.session['order_id'] = order.id
-            # redirect for payment
+                # redirect for payment
                 return redirect(reverse('payment:process'))
 
     else:

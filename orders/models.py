@@ -3,7 +3,11 @@ from base.models import Product
 from django.urls import reverse
 import random
 import string
+from enum import Enum
 
+class TipoPago(Enum):
+    T = "tarjeta"
+    C = "contrarrembolso"
 
 class Order(models.Model):
     first_name = models.CharField(max_length=50)
@@ -19,6 +23,7 @@ class Order(models.Model):
     remember_code=models.CharField(max_length=10,editable=False, blank=True,default='')
     id= models.CharField(max_length=10,editable=False, blank=True,default='', primary_key=True)
     braintree_id = models.CharField(max_length=150, blank=True)
+    tipo_pago = models.CharField(max_length=100, choices=[(tag.value,tag.value) for tag in TipoPago])
 
     class Meta:
         ordering = ('-created',)
@@ -33,12 +38,13 @@ class Order(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if self.remember==True:
+        if self.remember==True and self.remember_code=='':
             self.remember_code=''.join([random.choice( string.ascii_uppercase +
                                             string.ascii_lowercase +
                                             string.digits)
                                             for n in range(10)])
-        self.id=''.join([random.choice( string.ascii_uppercase +
+        if self.id=='':
+            self.id=''.join([random.choice( string.ascii_uppercase +
                                             string.ascii_lowercase +
                                             string.digits)
                                             for n in range(10)])
