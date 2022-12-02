@@ -3,21 +3,30 @@
 {% block title %}Pay by credit card{% endblock %}
 
 {% block content %}
-  <h1>Pay by credit card</h1>
+  <h1>Pago con Tarjeta de Crédito</h1>
   <form id="payment" method="post">
+    <div class="row">
+      <div class="col-sm-4">
+        <label for="card-number">Card Number</label>
+        <div id="card-number" class="field form-control" style="height:20% !important"></div>
+      </div>
 
-    <label for="card-number">Card Number</label>
-    <div id="card-number" class="field"></div>
+      <div class="col-sm-4">
+        <label for="cvv">CVV</label>
+        <div id="cvv" class="field form-control" style="height:20% !important"></div>
+      </div>
 
-    <label for="cvv">CVV</label>
-    <div id="cvv" class="field"></div>
+      <div class="col-sm-4">
+        <label for="expiration-date">Expiration Date</label>
+        <div id="expiration-date" class="field form-control" style="height:20% !important"></div>
+      </div>
 
-    <label for="expiration-date">Expiration Date</label>
-    <div id="expiration-date" class="field"></div>
-
-    <input type="hidden" id="nonce" name="payment_method_nonce" value="">
-    {% csrf_token %}
-    <input type="submit" value="Pay">
+      <input type="hidden" id="nonce" name="payment_method_nonce" value="">
+      {% csrf_token %}
+    </div>
+    <div class="row">
+      <input type="submit" class="btn btn-primary btn-lg" value="Pagar">
+    </div>
   </form>
   <!-- includes the Braintree JS client SDK -->
   <script src="https://js.braintreegateway.com/web/3.58.0/js/client.min.js"></script>
