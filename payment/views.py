@@ -12,8 +12,6 @@ gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
 def payment_process(request):
     order_id = request.session.get('order_id')
     order = get_object_or_404(Order, id=order_id)
-    print("="*50)
-    print(order)
     total_cost = order.get_total_cost()
 
     if request.method == 'POST':
@@ -35,7 +33,7 @@ def payment_process(request):
             order.save()
             # launch asynchronous task
             
-            subject = f'Pedido num. {order.id}'
+            subject = f'Pedido realizado correctamente'
             message = f'Querido {order.first_name},\n\n' \
                     f'Su pedido ha sido registrado exitosamente.\n' \
                     f'El identificador de su pedido es: {order.id}'
@@ -70,4 +68,4 @@ def payment_done(request):
 
 
 def payment_canceled(request):
-    return render(request, 'orders/created.html')
+    return render(request, 'payment/canceled.html')

@@ -16,12 +16,8 @@ def order_create(request):
         
         if 'order_create' in request.POST:
             form = OrderCreateForm(request.POST)
-            print("="*50)
-            print(form.is_valid)
             if form.is_valid():
                 order = form.save()
-                print("="*50)
-                print(order)
                 for item in cart:
                     OrderItem.objects.create(order=order,
                                             product=item['product'],
@@ -31,7 +27,7 @@ def order_create(request):
                 cart.clear()
 
                 if(order.tipo_pago=='contrarrembolso'):
-                    subject = f'Pedido num. {order.id}'
+                    subject = f'Pedido realizado correctamente'
                     message = f'Querido {order.first_name},\n\n' \
                             f'Su pedido ha sido registrado exitosamente.\n' \
                             f'El identificador de su pedido es: {order.id}'
@@ -93,7 +89,7 @@ def order_create(request):
                 cart.clear()
 
                 if(order.tipo_pago=='contrarrembolso'):
-                    subject = f'Pedido num. {order.id}'
+                    subject = f'Pedido realizado correctamente'
                     message = f'Querido {order.first_name},\n\n' \
                             f'Su pedido ha sido registrado exitosamente.\n' \
                             f'El identificador de su pedido es: {order.id}'
