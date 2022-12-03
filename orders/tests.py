@@ -29,7 +29,7 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
         super().setUp()
 
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
 
 
         self.driver = webdriver.Chrome(options=options)
@@ -122,7 +122,7 @@ class SeleniumAmountTestCase(StaticLiveServerTestCase):
         super().setUp()
 
         options = webdriver.ChromeOptions()
-        options.headless = False
+        options.headless = True
 
 
         self.driver = webdriver.Chrome(options=options)
