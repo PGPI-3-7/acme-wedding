@@ -165,3 +165,6 @@ def politica_privacidad(request):
 
 def terminos_uso_view(request):
     return render(request,'terminosuso.html')
+
+def politica_devolucion(request):
+    return render(request, 'politicadevolucion.html')
