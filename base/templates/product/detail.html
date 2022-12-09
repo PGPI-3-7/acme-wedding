@@ -33,7 +33,7 @@
 
             {%if  product.available == True %}
             <form class="row" action="{% url "cart:cart_add" product.id %}" method="post">   
-                <label for="id-form-quantity" class="col-lg-3 col-form-label">Cantidad</label>
+                <label for="id-form-quantity" class="col-lg-3 col-form-label">Cantidad<br>(en stock: {{ product.amount }})</label>
                 <div class="col-lg-6">
                     <input id="id_cantidad" name="cantidad" class="form-control mx-auto" type="number" value="1" min="1" max="{{product.amount}}" step="1"/>
                 </div>

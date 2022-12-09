@@ -26,6 +26,10 @@ def payment_process(request):
             }
         })
         if result.is_success:
+            for item in order.items.all():
+                product = item.product
+                product.amount = product.amount - item.quantity
+                product.save()
             # mark the order as paid
             order.paid = True
             # store the unique transaction id

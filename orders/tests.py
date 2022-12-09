@@ -1,5 +1,6 @@
 from django.test import TestCase
-
+from orders.models import Order, OrderItem
+from base.tests import CatalogoTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -19,6 +20,7 @@ from django.http import HttpRequest
 
 from acme_wedding.test_utils import create_product
 from time import sleep
+
 
 class SeleniumInicioTestCase(StaticLiveServerTestCase):
     
@@ -68,7 +70,7 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
         self.driver.find_element(By.CSS_SELECTOR, "p:nth-child(10) > .btn").click()
         self.assertTrue(len(self.driver.find_elements(By.ID, "gracias"))==1)
 
-    def test_tarjeta_positive(self):
+    def test_tarjeta_positive(self, tarj="4111 1111 1111 1111"):
         self.driver.get(f'{self.live_server_url}/catalogo')
         self.driver.find_element(By.CSS_SELECTOR, ".col-lg-12 > .btn").click()
         self.assertTrue(len(self.driver.find_elements_by_xpath("//*[contains(text(), 'Comprar')]"))==1)
@@ -94,22 +96,32 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
         self.assertTrue(len(self.driver.find_elements(By.ID, "processTitle"))==1)
         self.driver.switch_to.frame(0)
         self.driver.find_element(By.ID, "credit-card-number").click()
-        self.driver.find_element(By.ID, "credit-card-number").send_keys("4111 1111 1111 1111")
+        self.driver.find_element(By.ID, "credit-card-number").send_keys(tarj)
         self.driver.switch_to.default_content()
         self.driver.switch_to.frame(1)
         self.driver.find_element(By.ID, "cvv").click()
-        self.driver.find_element(By.ID, "cvv").send_keys("123")
+        self.driver.find_element(By.ID, "cvv").send_keys("443")
         self.driver.switch_to.default_content()
         self.driver.find_element(By.ID, "expiration-date").click()
         self.driver.switch_to.frame(2)
         self.driver.find_element(By.ID, "expiration").click()
-        self.driver.find_element(By.ID, "expiration").send_keys("12 / 34")
+        self.driver.find_element(By.ID, "expiration").send_keys("01 / 24")
         self.driver.switch_to.default_content()
         self.driver.find_element(By.CSS_SELECTOR, ".btn-lg").click()
-        sleep(2)#Necesario para enviar braintree
+        sleep(10)#Necesario para enviar braintree
         self.assertTrue(len(self.driver.find_elements(By.ID, "gracias"))==1)
-
 
     def test_enter_inicio_negative(self):
         self.driver.get(f'{self.live_server_url}/cart')
         self.assertTrue(len(self.driver.find_elements_by_xpath("//*[contains(text(), 'Comprar')]"))==0)
+
+    def test_amount_decrease(self):
+        self.driver.get(f'{self.live_server_url}/catalogo')
+        amount = self.driver.find_element(By.ID, "amount").text.replace("Stock: ","")
+        self.test_tarjeta_positive("4012 0000 7777 7777")
+        self.driver.get(f'{self.live_server_url}/catalogo')
+        amount2 = self.driver.find_element(By.ID, "amount").text.replace("Stock: ","")
+        self.assertTrue(int(amount) == int(amount2) + 1)
+
+    
+
