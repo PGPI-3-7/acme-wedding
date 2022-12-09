@@ -31,7 +31,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5"> 
             {% for product,form in products.items %}
             <div class="col mb-4">
-                <div class="product-wrapper card">
+                <div class="product-wrapper card" id="id-{{ product.slug }}">
                     <div class="product-img"> 
                         <a href="{{ product.get_absolute_url }}">
                             <img class="card-img-top" alt="imagen del producto" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
