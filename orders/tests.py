@@ -115,44 +115,13 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
         self.driver.get(f'{self.live_server_url}/cart')
         self.assertTrue(len(self.driver.find_elements_by_xpath("//*[contains(text(), 'Comprar')]"))==0)
 
-class SeleniumAmountTestCase(StaticLiveServerTestCase):
-    
-    def setUp(self):
-        #Load base test functionality for decide
-        super().setUp()
-
-        options = webdriver.ChromeOptions()
-        options.headless = True
-
-
-        self.driver = webdriver.Chrome(options=options)
-        self.driver.set_window_size(1920,1080)
-
-        session = SessionStore(None)
-        session.clear()
-        session.cycle_key()
-        session[settings.CART_SESSION_ID] = {}
-        session.save()
-        self.session = session
-
-        self.test_category, self.test_product = create_product() 
-        request = HttpRequest()
-        request.session = self.session
-        self.cart = Cart(request)     
-        self.cart.add(self.test_product)  
-            
-    def tearDown(self):           
-        super().tearDown()
-        self.driver.quit()
-        self.cart.clear()
-
     def test_amount_decrease(self):
         self.driver.get(f'{self.live_server_url}/catalogo')
         amount = self.driver.find_element(By.ID, "amount").text.replace("Stock: ","")
-        SeleniumInicioTestCase.test_tarjeta_positive(self,"4012 0000 7777 7777")
+        self.test_tarjeta_positive("4012 0000 7777 7777")
         self.driver.get(f'{self.live_server_url}/catalogo')
         amount2 = self.driver.find_element(By.ID, "amount").text.replace("Stock: ","")
         self.assertTrue(int(amount) == int(amount2) + 1)
 
-
+    
 
