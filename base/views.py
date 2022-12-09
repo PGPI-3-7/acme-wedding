@@ -14,7 +14,7 @@ def base(request):
     try:
         productos = random.sample(list(Product.objects.filter(available=True).values()),k=3)
     except:
-        return render(request,'error.html',{'mensaje': 'Actualmente no hay suficientes productos disponibles como para mostrar el escaparate :('})
+        return render(request,'error.html',{'mensaje': 'Actualmente no hay suficientes productos disponibles como para mostrar el escaparate'})
     return render(request,'inicio.html',{'p0':productos[0],'p1':productos[1],'p2':productos[2]})
 
 @require_http_methods(["GET", "POST"])

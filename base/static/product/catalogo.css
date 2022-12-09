@@ -5,11 +5,6 @@ img {
   height:300px;
   object-fit: cover;
 }
-
-body{
-    vertical-align: middle;
-    font-family: 'Calibri', sans-serif !important;
-    background-color:#f4f4f4}
     
 .mt-100{margin-top:5%}
 
