@@ -19,7 +19,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse px-2" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% block menuitems %}{% endblock %}
                     
@@ -46,14 +46,31 @@
                         </ul>
                     </li>
             
-
+                    
                 </ul>
+                <form class="d-flex nav-item mb-2 mb-lg-0" action="/catalogo" method="GET">
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-etiqueta-buscar-nombre">Buscar artículo por nombre</span>
+                        <input id="id-buscar-nombre" class="form-control me-2" name="name" type="search" placeholder="Buscar por nombre" aria-label="Buscar por nombre">
+                    </div>
+                    <button id="id-buscar-boton" class="btn btn-outline-info" type="submit">Buscar</button>
+                </form>             
             </div>
             <div class="nav-item">
                 <a class="btn btn-primary" href="/cart">Carrito&nbsp;<em class="bi bi-cart3"></em></a>
             </div>
         </div>
     </nav>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <div {% if message.tags == 'error' %} class="alert alert-danger" {% elif message.tags == 'success' %} class="alert alert-success"{% endif %}  role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif%}
     <div id="content" class="container">
         {% block content %}
         {% endblock %}

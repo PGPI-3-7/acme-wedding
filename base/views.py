@@ -49,23 +49,29 @@ def product_list(request, category_slug=None):
 
     categories_limit=categories[0:3]
     categories_all=categories[3:]
-    products_ava = Product.objects.filter(available=True)
-    products_sol = Product.objects.filter(available=False)
+
+    products = Product.objects.all()
+    if request.GET.get('name'):
+        products = products.filter(name__icontains=request.GET['name'])
+
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        products_ava = products_ava.filter(category=category)
-        products_sol = products_sol.filter(category=category)
+        products = products.filter(category=category)
+
+    products_ava = products.filter(available=True)
+    products_sol = products.filter(available=False)
 
     # Asigna un formulario a cada producto disponible
-    products = {p:CartAddProductForm() for p in products_ava}
+    products_ava_dict = {p:CartAddProductForm() for p in products_ava}
 
-    return render(request,
-                  'product/catalogo.html',
+    admin = request.user.is_staff
+    return render(request,'product/catalogo.html',
                   {'category': category,
                    'categories_limit': categories_limit,
                    'categories_all': categories_all,
-                   'products': products,
-                   'products_sol': products_sol
+                   'products': products_ava_dict,
+                   'products_sol': products_sol,
+                   'admin': admin
                    })
 
 def product_detail(request, id, slug):

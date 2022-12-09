@@ -1,5 +1,6 @@
 from django.test import TestCase
 from .models import Category, Product
+from acme_wedding.test_utils import create_product
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
@@ -103,7 +104,6 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
         self.driver.get(f'{self.live_server_url}')
         self.assertTrue(len(self.driver.find_elements(By.CLASS_NAME, "btn-danger"))==1)
 
-
 class SeleniumCatalogoTestCase(StaticLiveServerTestCase):
     
     def setUp(self):
@@ -178,3 +178,46 @@ class SeleniumCatalogoTestCase(StaticLiveServerTestCase):
         self.driver.get(f'{self.live_server_url}/catalogo')
         self.driver.find_element_by_xpath("//*[contains(text(), 'Producto Test')]").click()
         self.assertTrue(len(self.driver.find_elements_by_xpath("//*[contains(text(), 'Producto de prueba para la aplicacion')]"))==1)
+
+class SeleniumSearchTestCase(StaticLiveServerTestCase):
+
+    def setUp(self) -> None:
+        self.test_category,self.test_product = create_product()
+        super().setUp()
+
+        options = webdriver.ChromeOptions()
+        options.headless = True
+        self.driver = webdriver.Chrome(options=options)
+
+    def tearDown(self) -> None:
+        super().tearDown()
+        self.driver.quit()
+        self.product=None
+        self.category=None
+
+    def test_busca_producto_desde_inicio(self):
+        self.driver.set_window_size(1920, 1080)
+        self.driver.get(f'{self.live_server_url}/')
+        self.driver.find_element(By.NAME,'name').send_keys("Producto Test")
+        self.driver.find_element(By.ID,'id-buscar-boton').click()
+
+        encontrado = self.driver.find_elements(By.ID,'id-{}'.format(self.test_product.slug))
+        self.assertEqual(len(encontrado),1)
+
+    def test_busca_pero_nadie_vino(self):
+        self.driver.set_window_size(1920, 1080)
+        self.driver.get(f'{self.live_server_url}/')
+        self.driver.find_element(By.NAME,'name').send_keys("Ayuda estoy explotado")
+        self.driver.find_element(By.ID,'id-buscar-boton').click()
+
+        encontrado = self.driver.find_elements(By.ID,'id-{}'.format(self.test_product.slug))
+        self.assertEqual(len(encontrado),0)
+
+    def test_busca_producto_desde_catalogo(self):
+        self.driver.set_window_size(1920, 1080)
+        self.driver.get(f'{self.live_server_url}/catalogo')
+        self.driver.find_element(By.NAME,'name').send_keys("Producto Test")
+        self.driver.find_element(By.ID,'id-buscar-boton').click()
+
+        encontrado = self.driver.find_elements(By.ID,'id-{}'.format(self.test_product.slug))
+        self.assertEqual(len(encontrado),1)

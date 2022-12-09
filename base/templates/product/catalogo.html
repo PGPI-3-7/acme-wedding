@@ -2,19 +2,15 @@
 {% load static %}
 
 {% block title %}
-  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "product/catalogo.css" %}">
 {% endblock %}
 
 {% block content %}
-
-
-<link rel="stylesheet" href="{% static "product/catalogo.css" %}">
-
-<div class="container" >
-    <br>
-  
-    <nav class="nav nav-pills nav-justified sticky">
-
+    <nav class="nav nav-pills nav-justified my-4 sticky">
         <a  {% if not category %}class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{% url "base:product_list" %}">Todas</a>
         {% for c in categories_limit %}
             <a id="category-{{ forloop.counter }}" {% if category.slug == c.slug %} class="nav-item nav-link active"{% endif %}class="nav-item nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
@@ -29,29 +25,33 @@
         </div>
     </nav>
 
-    <div class=" justify-content-center mt-100">
+    <hr>
+
+    <div class=" justify-content-center">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5"> 
             {% for product,form in products.items %}
             <div class="col mb-4">
-                <div class="product-wrapper card">
+                <div class="product-wrapper card" id="id-{{ product.slug }}">
                     <div class="product-img"> 
                         <a href="{{ product.get_absolute_url }}">
                             <img class="card-img-top" alt="imagen del producto" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
                         </a>	
                         <span class="text-center">{{ product.price }}€</span>
-                        <div class="row product-action"> 
+                        <div class="row product-action" style="z-index: 2;"> 
                             <div class="product-action-style">
                                 <h5 class="col-lg-12 card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
-                                <form class="row mx-auto" action="{% url "cart:cart_add" product.id %}" method="post" style="width: 80%;"> 
-                                    <div class="col-lg-12 mx-auto">
-                                        <input id="id_cantidad" name="cantidad" class="form-control mx-auto" type="number" value="1" min="1" max="{{product.amount}}" step="1"/>
-                                    </div>
-                                    {{ form }}
-                                    {% csrf_token %}
-                                    <div class="col-lg-12 d-grid gap-2 mx-auto">
-                                        <button class="btn btn-primary" type="submit" value="Aceptar"><em class="bi bi-cart3"></em></button>
-                                    </div>
-                                </form>
+                                {%if admin == False %}
+                                    <form class="row mx-auto" action="{% url "cart:cart_add" product.id %}" method="post" style="width: 80%;"> 
+                                        <div class="col-lg-12 mx-auto">
+                                            <input id="id_cantidad" name="cantidad" class="form-control mx-auto" type="number" value="1" min="1" max="{{product.amount}}" step="1"/>
+                                        </div>
+                                        {{ form }}
+                                        {% csrf_token %}
+                                        <div class="col-lg-12 d-grid gap-2 mx-auto">
+                                            <button class="btn btn-primary" type="submit" value="Aceptar"><em class="bi bi-cart3"></em></button>
+                                        </div>
+                                    </form>
+                                {% endif %}
                             </div> 
                         </div> 
                     </div> 
@@ -67,7 +67,7 @@
                             <img alt="imagen del producto" class="card-img-top img-sold-out" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
                         </a>	
                         <span class="text-center price-sold">{{ product.price }} €</span>
-                        <div class="product-action"> 
+                        <div class="row product-action" style="z-index: 2;"> 
                             <div class="product-action-style">
                                 <h5 class="card-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
                             </div> 
@@ -78,5 +78,4 @@
             {% endfor %}
         </div> 
     </div>
-</div>  
 {% endblock %}
