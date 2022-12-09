@@ -8,7 +8,7 @@ from enum import Enum
 
 class OrderCreateForm(forms.ModelForm):
     order_create = forms.BooleanField(widget=forms.HiddenInput, initial=True)
-    accept_terms = forms.BooleanField(label = mark_safe('He leído y acepto la <a href="/politicaprivacidad">política de privacidad</a> de Acme-wedding'))
+    accept_terms = forms.BooleanField()
     class Meta:
         model = Order
         fields = ['first_name', 'last_name', 'email', 'address',
@@ -16,7 +16,7 @@ class OrderCreateForm(forms.ModelForm):
 
 class RegisterOrderCreateForm(forms.ModelForm):
     user_order_create = forms.BooleanField(widget=forms.HiddenInput, initial=True)
-    remember_code = forms.CharField(label='Código de Verificación')
+    remember_code = forms.CharField()
    
     class Meta:
         model = Order
