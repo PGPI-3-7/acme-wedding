@@ -108,7 +108,7 @@ class SeleniumInicioTestCase(StaticLiveServerTestCase):
         self.driver.find_element(By.ID, "expiration").send_keys("01 / 24")
         self.driver.switch_to.default_content()
         self.driver.find_element(By.CSS_SELECTOR, ".btn-lg").click()
-        sleep(10)#Necesario para enviar braintree
+        sleep(20)#Necesario para enviar braintree
         self.assertTrue(len(self.driver.find_elements(By.ID, "gracias"))==1)
 
     def test_enter_inicio_negative(self):
