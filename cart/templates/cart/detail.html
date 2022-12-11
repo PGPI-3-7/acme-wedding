@@ -35,7 +35,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             {{ item.update_quantity_form.override }}
-                                            <input type="submit" class="btn btn-primary" value="Update">
+                                            <input type="submit" class="btn btn-primary" value="Actualizar">
                                             {% csrf_token %}
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                             </td>
                             <td>
                                 <form action="{% url "cart:cart_remove" product.id %}" method="post">
-                                    <input type="submit" class="btn btn-primary" value="Remove">
+                                    <input type="submit" class="btn btn-primary" value="Borrar">
                                     {% csrf_token %}
                                 </form>
                             </td>

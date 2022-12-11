@@ -35,6 +35,14 @@ def order_create(request):
                     message = f'Querido {order.first_name},\n\n' \
                             f'Su pedido ha sido registrado exitosamente.\n' \
                             f'El identificador de su pedido es: {order.id}'
+                    aux='\nProductos:\n '
+                    for item in cart:
+                        product = item['product']
+                        cantidad = item['quantity']
+                        total_precio=item['price']
+                        aux+= '\n\tNombre: {} \n\tDescripción: {}\n\tCantidad: {}\n\tPrecio: {}€'.format(product.name,product.description, cantidad, total_precio)
+                    aux+='\nImporteTotal: {}€ \nDirección: {}, {}, {}'.format(float(cart.get_total_price()), order.address, order.postal_code, order.city)
+                    message = message + aux
                     send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
                     sent = True
 
@@ -101,6 +109,14 @@ def order_create(request):
                     message = f'Querido {order.first_name},\n\n' \
                             f'Su pedido ha sido registrado exitosamente.\n' \
                             f'El identificador de su pedido es: {order.id}'
+                    aux='\nProductos:\n '
+                    for item in cart:
+                        product = item['product']
+                        cantidad = item['quantity']
+                        total_precio=item['price']
+                        aux+= '\n\tNombre: {} \n\tDescripción: {}\n\tCantidad: {}\n\tPrecio: {}€'.format(product.name,product.description, cantidad, total_precio)
+                    aux+='\nImporteTotal: {}€ \nDirección: {}, {}, {}'.format(float(cart.get_total_price()), order.address, order.postal_code, order.city)
+                    message = message + aux
                     send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
                     sent = True
                     return render(request,'orders/order/created.html',{'order': order})

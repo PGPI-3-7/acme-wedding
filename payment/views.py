@@ -41,6 +41,14 @@ def payment_process(request):
             message = f'Querido {order.first_name},\n\n' \
                     f'Su pedido ha sido registrado exitosamente.\n' \
                     f'El identificador de su pedido es: {order.id}'
+            aux='\nProductos:\n '
+            for item in order.items.all():
+                product = item.product
+                cantidad = item.quantity
+                total_precio=item.price
+                aux+= '\n\tNombre: {} \n\tDescripción: {}\n\tCantidad: {}\n\tPrecio: {}€'.format(product.name,product.description, cantidad, total_precio)
+            aux+='\nImporteTotal: {}€ \nDirección: {}, {}, {}'.format(float(order.get_total_cost()), order.address, order.postal_code, order.city)
+            message = message + aux
             send_mail(subject, message, 'acmewedding.elesemca@gmail.com', [order.email])
             sent = True
 
