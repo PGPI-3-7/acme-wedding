@@ -37,12 +37,14 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                             <li><a class="dropdown-item" href="/metodopago">Métodos de pago</a></li>
                             <li><a class="dropdown-item" href="/opcionesentrega">Opciones de entrega</a></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="/politicaenvio">Política de envío</a></li>
-                            <li><a class="dropdown-item" href="/datosempresa">Sobre la empresa</a></li>
-                            <li><a class="dropdown-item" href="/terminosuso">Términos de uso</a></li>
-                            <li><a class="dropdown-item" href="/incidencias">Servicio técnico</a></li>
                             <li><a class="dropdown-item" href="/politicaprivacidad">Política de privacidad</a></li>
                             <li><a class="dropdown-item" href="/politicadevolucion">Política de devolución</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/terminosuso">Términos de uso</a></li>
+                            <li><a class="dropdown-item" href="/datosempresa">Datos de contacto</a></li>
+                            <li><a class="dropdown-item" href="/incidencias">Servicio técnico</a></li>
                         </ul>
                     </li>
             
@@ -61,17 +63,18 @@
             </div>
         </div>
     </nav>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <div {% if message.tags == 'error' %} class="alert alert-danger" {% elif message.tags == 'success' %} class="alert alert-success"{% endif %}  role="alert">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <span>{{ message }}</span>
-                </div>
-            {% endfor %}
-        </ul>
-    {% endif%}
+    
     <div id="content" class="container">
+        {% if messages %}
+            <ul class="messages mt-3">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif%}
         {% block content %}
         {% endblock %}
     </div>
