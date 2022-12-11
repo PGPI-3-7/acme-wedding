@@ -13,6 +13,6 @@ RUN git clone https://github.com/PGPI-3-7/acme-wedding .
 RUN git checkout -b develop origin/develop
 RUN pip install -r ./requirements.txt
 
-ADD docker-settings.py ./settings.py
+ADD ./docker-settings.py ./settings.py
 
 RUN ./manage.py collectstatic
