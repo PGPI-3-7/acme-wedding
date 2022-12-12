@@ -18,7 +18,6 @@ COPY docker-settings.py ./settings.py
 EXPOSE 8000
 
 RUN python manage.py makemigrations
-RUN python manage.py makemigrations orders
 RUN python manage.py migrate
 RUN python manage.py loaddata initial_data.json
 
