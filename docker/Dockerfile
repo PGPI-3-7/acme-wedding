@@ -17,6 +17,7 @@ COPY docker-settings.py ./settings.py
 
 EXPOSE 8000
 
+RUN python manage.py loaddata initial_data.json
 COPY startdjango.sh .
 
 CMD "./startdjango.sh"
