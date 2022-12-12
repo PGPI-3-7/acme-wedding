@@ -15,6 +15,11 @@ RUN pip install -r ./requirements.txt
 
 COPY docker-settings.py ./settings.py
 
+RUN python manage.py makemigrations
+RUN python manage.py makemigrations orders
+RUN python manage.py migrate
+RUN python manage.py loaddata initial_data.json
+
 EXPOSE 8000
 
 COPY startdjango.sh .
