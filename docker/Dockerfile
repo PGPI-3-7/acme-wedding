@@ -9,11 +9,11 @@ RUN pip install ipython
 
 WORKDIR /app
 
-RUN git clone https://github.com/PGPI-3-7/acme-wedding .
+RUN git clone https://github.com/PGPI-3-7/acme-wedding.git .
 RUN git checkout -b develop origin/develop
 RUN pip install -r ./requirements.txt
 
-COPY docker-settings.py ./settings.py
+COPY docker-settings.py ./acme_wedding/settings.py
 
 EXPOSE 8000
 
