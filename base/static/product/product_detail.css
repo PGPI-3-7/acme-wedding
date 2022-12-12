@@ -152,10 +152,13 @@ a:link, a:visited, a:active {
     position: relative;
     width: 100%;
     z-index: 0;
+    object-fit:scale-down;
+    height: 100%;
   }
-.detials-sold-out-logo{
+.details-sold-out-logo{
     position: absolute;
-    left: 0;
-    width: 100%;
     z-index: 1;
+    left: 0;
+    top:25%;
+    width: 100%;
   }

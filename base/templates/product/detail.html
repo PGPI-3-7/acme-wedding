@@ -15,11 +15,11 @@
     <div class="row align-items-center">
         
         <div class="col-lg-6" >
-            <div class="card align-items-center" style="border: none;">
+            <div class="card align-items-center" style="height: 500px; border: none;">
                 {%if product.available == False %}
-                <img alt="imagen de producto agotado" class="sold-out-logo"  src="/media/agotado.png" >
+                <img alt="imagen de producto agotado" class="details-sold-out-logo"  src="/media/agotado.png" >
                 {% endif %}
-                <img alt="imagen del producto" class="img-sold-out" style=" object-fit:scale-down" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                <img alt="imagen del producto" class="details-img-sold-out" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
             </div>
         </div>
         <div class="col-lg-6">
