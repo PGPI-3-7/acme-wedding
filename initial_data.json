@@ -1,0 +1,142 @@
+[
+
+{
+  "model": "sessions.session",
+  "pk": "xc7dv1b9tav9sx5lepsef6ig7fvcly7w",
+  "fields": {
+    "session_data": "MDViMzgzZDAwODRjZDA3ODkyNTA0OGRlZWZkMjFjMGNlZDY0NjkxNjp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlMDhjNDRiZjQwNmQ1MjRiNmI0ZWQxMzhlYjRlNzRjNmQwYWI5MjMyIn0=",
+    "expire_date": "2022-12-26T11:02:04.445Z"
+  }
+},
+{
+  "model": "base.category",
+  "pk": 5,
+  "fields": {
+    "name": "Anillos",
+    "slug": "anillos"
+  }
+},
+{
+  "model": "base.category",
+  "pk": 6,
+  "fields": {
+    "name": "Altares",
+    "slug": "altares"
+  }
+},
+{
+  "model": "base.category",
+  "pk": 7,
+  "fields": {
+    "name": "Trajes de novio",
+    "slug": "trajes-de-novio"
+  }
+},
+{
+  "model": "base.category",
+  "pk": 8,
+  "fields": {
+    "name": "Vestidos de novia",
+    "slug": "vestidos-de-novia"
+  }
+},
+{
+  "model": "base.product",
+  "pk": 6,
+  "fields": {
+    "category": 5,
+    "name": "Anillos de oro",
+    "slug": "anillos-de-oro",
+    "image": "products/2022/12/12/anillos_4DTLxFM.jpg",
+    "description": "Anillos de boda hechos en oro de 18 quilates. Disponible en talla 20 (19,10mm de di\u00e1metro y 4mm de ancho).\r\n\r\nTalla: 20",
+    "price": "360.00",
+    "amount": 4,
+    "available": true,
+    "created": "2022-12-12T11:04:08.926Z",
+    "updated": "2022-12-12T11:10:15.910Z"
+  }
+},
+{
+  "model": "base.product",
+  "pk": 7,
+  "fields": {
+    "category": 6,
+    "name": "Altar rural",
+    "slug": "altar-rural",
+    "image": "products/2022/12/12/altar_rural_Ksqez4l.jpg",
+    "description": "Si deseas celebrar la boda de tus sue\u00f1os al aire libre, en el campo o la playa, este altar es ideal. Incluye:\r\n\r\n- Bancos para los invitados\r\n- Estructura de madera de bamb\u00fa y telas blancas para proteger de la luz directa del sol\r\n- Altar de madera\r\n- Decoraciones vegetales\r\n- Cruz de madera\r\n\r\nAlquiler disponible durante 3 d\u00edas.",
+    "price": "3750.00",
+    "amount": 1,
+    "available": true,
+    "created": "2022-12-12T11:06:31.275Z",
+    "updated": "2022-12-12T11:06:31.275Z"
+  }
+},
+{
+  "model": "base.product",
+  "pk": 8,
+  "fields": {
+    "category": 5,
+    "name": "Anillos con franja de acero",
+    "slug": "anillos-con-franja-de-acero",
+    "image": "products/2022/12/12/anillos2_gb9bG35.jpg",
+    "description": "Anillos de oro de 8 quilates decorados con una franja central de acero inoxidable. Disponible en talla 21 (20,1mm de di\u00e1metro) y 3mm de ancho.",
+    "price": "175.00",
+    "amount": 0,
+    "available": false,
+    "created": "2022-12-12T11:07:36.505Z",
+    "updated": "2022-12-12T11:07:36.505Z"
+  }
+},
+{
+  "model": "base.product",
+  "pk": 9,
+  "fields": {
+    "category": 7,
+    "name": "Traje de novio",
+    "slug": "traje-de-novio",
+    "image": "products/2022/12/12/traje_NCHdQGz.jpg",
+    "description": "Este traje de novio es ideal para aquellos hombres elegantes pero con un toque informal. De corte recto y color negro, se ajusta perfectamente al cuerpo.\r\n\r\nTalla chaqueta: M\r\nTalla pantalones: 40\r\n\r\nIncluye flores decorativas.\r\nAlquiler disponible durante 7 d\u00edas.",
+    "price": "70.00",
+    "amount": 3,
+    "available": true,
+    "created": "2022-12-12T11:09:46.009Z",
+    "updated": "2022-12-12T11:09:46.009Z"
+  }
+},
+{
+  "model": "base.product",
+  "pk": 10,
+  "fields": {
+    "category": 8,
+    "name": "Vestido de novia cl\u00e1sico",
+    "slug": "vestido-de-novia-clasico",
+    "image": "products/2022/12/12/vestido_SvXOeQi.jpg",
+    "description": "Este es el vestido ideal para novias que buscan un corte cl\u00e1sico, con escote alto y bordados decorativos., en color blanco hueso.\r\n\r\nTalla disponible: M\r\n\r\nAlquiler disponible durante 7 d\u00edas.",
+    "price": "400.00",
+    "amount": 2,
+    "available": true,
+    "created": "2022-12-12T11:12:23.004Z",
+    "updated": "2022-12-12T11:12:23.004Z"
+  }
+},
+
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$3WGe5JRybAH9$gzw6nTkBjJTJ9m9grnL0Mm8Fj3MHYhks6cGKCYRAoRw=",
+    "last_login": "2022-12-12T11:02:04.442Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-12-12T11:01:48.747Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

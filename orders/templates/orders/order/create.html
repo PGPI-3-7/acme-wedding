@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Salida
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class='container'>
+    
+  <div class='row'>
+    <div class="order-info">
+      <h1>Confirma su compra</h1>
+      <div class="row table-responsive">
+        <table aria-label="Carrito" class="table table-primary table-hover align-middle">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                {% for item in cart %}
+                    {% with product=item.product %}
+                        <tr>
+                            <td>
+                                <a href="{{ product.get_absolute_url }}">
+                                    <img alt="Imagen del producto" src="{% if product.image %}{{ product.image.url }}{% else %}./static/img/no_image.png {% endif %}">
+                                </a>
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <p >{{ item.quantity }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="num">{{ item.price }} €</td>
+                
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+    
+                
+            </tbody>
+        </table>
+
+    </div>
+  </div>
+
+  <div class='row mt-5'>
+    <h3>Introduzca sus datos:</h3>
+    
+    <form action="/orders/create/" method="post">
+      {%   csrf_token  %}
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row mt-4">
+            <label for="first_name" class="col-sm-2 col-form-label">Nombre:</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="first_name" name="first_name">
+            </div>
+          </div>
+          <div class="form-group row mt-3">
+            <label for="last_name" class="col-sm-2 col-form-label">Apellidos:</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="last_name" name="last_name">
+            </div>
+          </div>
+          <div class="form-group row mt-3">
+            <label for="email" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="email" name="email">
+            </div>
+          </div>
+          <div class="form-group row mt-3">
+            <label for="remember" class="col-sm-4 form-check-label">Recordar datos:</label>
+            <div class="col-sm-8">
+              <input class="form-check-input" type="checkbox" id="remember" name="remember">
+            </div>
+          </div>
+          <div class="form-group row mt-3">
+            <label for="tipo_pago" class="col-sm-3 form-check-label">Tipo de pago:</label>
+            <div class="col-sm-9">
+              <select id="tipo_pago" name="tipo_pago" class="form-control">
+                <option selected>...</option>
+                <option value="tarjeta">tarjeta</option>
+                <option value="contrarrembolso">contrarrembolso</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group row mt-4">
+            <label for="postal_code" class="col-sm-4 col-form-label">Código Postal:</label>
+            <div class="col-sm-8">
+              <input class="form-control" id="postal_code" name="postal_code">
+            </div>
+          </div>
+          <div class="form-group row mt-3">
+            <label for="city" class="col-sm-2 col-form-label">Ciudad:</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="city" name="city">
+            </div>
+          </div>
+          <div class="form-group row mt-3">
+            <label for="address" class="col-sm-2 col-form-label">Dirección:</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="address" name="address">
+            </div>
+          </div>
+          <div class="form-group row mt-3">
+            <label for="accept_terms" class="col-sm-8 form-check-label">He leído y acepto la <a href="/politicaprivacidad/">Política de privacidad</a>:</label>
+            <div class="col-sm-4">
+              <input class="form-check-input" type="checkbox" id="accept_terms" name="accept_terms">
+            </div>
+          </div>
+          <div class="form-group row mt-3">
+            <div class="col-sm-4"> 
+              <input class="form-check-input" type="hidden" id="order_create" name="order_create" value="True">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center mt-5"><input type="submit" class='btn btn-primary' id="btn1" value="Confirmar"></p>
+    </form>
+    <div class="mb-5"></div>
+    <hr></hr>
+    <h3 class="mt-2">Introduzca su código de verificación:</h3>
+    <p>Marcando la opción recordar datos al realizar una compra obtendrá un código de verificación que podrá utilizar en el resto de sus compras para no tener que rellenar el formulario de datos cada vez que compre.</p>
+    <form action="/orders/create/" method="post">
+      {%   csrf_token  %}
+      <div class="form-group row mt-3">
+        <label for="tipo_pago" class="col-sm-3 form-check-label">Tipo de pago:</label>
+        <div class="col-sm-9">
+          <select id="tipo_pago" name="tipo_pago" class="form-control">
+            <option selected>...</option>
+            <option value="tarjeta">tarjeta</option>
+            <option value="contrarrembolso">contrarrembolso</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row mt-3">
+        <label for="remember_code" class="col-sm-3 col-form-label">Código de verificación:</label>
+        <div class="col-sm-9">
+          <input class="form-control" id="remember_code" name="remember_code">
+        </div>
+      </div>
+      <div class="form-group row mt-3">
+        <div class="col-sm-4"> 
+          <input class="form-check-input" type="hidden" id="user_order_create" name="user_order_create" value="True">
+        </div>
+      </div>
+      <p class="text-center mt-5"><input type="submit" class='btn btn-primary' value="Confirmar"></p>
+    </form>
+  </div>  
+</div>
+</div>
+{% endblock %}
